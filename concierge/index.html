@@ -1,0 +1,3193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#055588">
+<title>Mobile Concierge Registration · Divi Little Bay</title>
+<style>
+  :root {
+    --blue: #0278b9;
+    --navy: #055588;
+    --pink: #ef5a93;
+    --aqua: #7dcdcc;
+    --ink: #1e2a32;
+    --muted: #5c6b76;
+    --line: #d5e2ee;
+    --paper: #f3f7fb;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: Montserrat, "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    min-height: 100vh;
+  }
+  button, input, select, textarea { font: inherit; color: inherit; }
+  button { cursor: pointer; }
+  .appbar {
+    background: var(--navy);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 12px 20px;
+    min-height: 78px;
+  }
+  .appbar img { width: 148px; height: auto; }
+  .brand strong { display: block; font-size: 18px; letter-spacing: -0.02em; }
+  .brand span { display: block; font-size: 13px; color: #d7ebf8; margin-top: 2px; }
+  #nav { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+  .navbtn {
+    background: transparent;
+    color: #fff;
+    border: 1.5px solid rgba(255,255,255,.35);
+    border-radius: 999px;
+    min-height: 44px;
+    padding: 8px 16px;
+    font-weight: 700;
+  }
+  .navbtn.active { background: #fff; color: var(--navy); border-color: #fff; }
+  .accent { height: 4px; background: var(--pink); }
+  .page { padding: 18px 22px 32px; }
+  h1 { margin: 0; font-size: 28px; color: var(--navy); letter-spacing: -0.03em; }
+  h2 { margin: 14px 0 8px; font-size: 16px; color: var(--navy); }
+  .sub, .meta { color: var(--muted); font-size: 13.5px; }
+  .sub { margin: 4px 0 0; }
+  .kicker { margin: 0; color: var(--blue); font-weight: 700; letter-spacing: .12em; text-transform: uppercase; font-size: 12px; }
+  .hrow { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; margin-bottom: 14px; }
+  .search { min-width: 280px; min-height: 48px; border-radius: 12px; border: 1.5px solid #c9d7e4; padding: 0 14px; background: #fff; }
+  .stats { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .stat {
+    background: #fff; border: 1.5px solid var(--line); border-radius: 14px;
+    min-height: 64px; min-width: 120px; text-align: left; padding: 8px 12px; font-weight: 600; font-size: 13px; color: var(--muted);
+  }
+  .stat b { display: block; font-size: 22px; color: var(--navy); font-weight: 700; }
+  .stat.on { border-color: var(--blue); background: #eaf6fc; }
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .gcard {
+    display: block; width: 100%; text-align: left; background: #fff; border: 1.5px solid var(--line);
+    border-radius: 16px; padding: 14px; color: inherit;
+  }
+  .gcard:hover, .gcard:focus-visible { border-color: var(--blue); outline: none; }
+  .grow { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+  .grow strong { font-size: 18px; color: var(--navy); }
+  .room { font-weight: 700; color: var(--blue); }
+  .gid { font-size: 13px; font-weight: 700; margin: 4px 0; }
+  .prow { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+  .pill { background: #eef3f7; color: var(--navy); border-radius: 999px; padding: 3px 8px; font-size: 12px; font-weight: 700; }
+  .pill.aqua { background: #e5f7f7; color: #0e6e6c; }
+  .pill.pink, .pill.hot { background: #fde7ef; color: #a3164e; }
+  .footrow { display: flex; justify-content: space-between; gap: 8px; font-size: 12.5px; color: var(--muted); font-weight: 600; }
+  .count { color: var(--navy); }
+  .panel { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 16px; }
+  .cols { display: grid; grid-template-columns: 280px minmax(0, 1fr) 320px; gap: 12px; align-items: start; }
+  .bignum { font-size: 26px; font-weight: 700; color: var(--navy); margin: 4px 0; }
+  .back { background: none; border: 0; color: var(--blue); font-weight: 700; padding: 0 0 8px; min-height: 40px; }
+  .timeline { display: flex; flex-direction: column; gap: 8px; }
+  .msg { background: #f5f9fc; border-radius: 12px; padding: 10px 12px; }
+  .msg p { margin: 6px 0 0; }
+  .msg .meta, .ch { font-size: 12px; color: var(--muted); font-weight: 700; }
+  .msg .meta { display: flex; gap: 10px; flex-wrap: wrap; }
+  .logged { color: var(--blue); }
+  .composer { margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+  .seg { display: flex; gap: 8px; flex-wrap: wrap; }
+  .seg.col { flex-direction: column; }
+  .seg label, .pick, .checkline {
+    display: flex; align-items: center; gap: 8px; background: #f5f9fc; border: 1.5px solid var(--line);
+    border-radius: 12px; min-height: 48px; padding: 8px 12px; font-weight: 700;
+  }
+  .seg label { flex: 1; justify-content: center; }
+  .seg label:has(input:checked), .pick:has(input:checked) { border-color: var(--blue); background: #eaf6fc; color: var(--navy); }
+  .tix { border: 1.5px solid var(--line); border-radius: 12px; padding: 10px; margin-bottom: 8px; }
+  .tix.hot { border-color: #f3b3cc; background: #fff7fa; }
+  .subj { font-weight: 700; color: var(--navy); margin: 6px 0; word-break: break-word; }
+  textarea { min-height: 72px; resize: vertical; }
+  input, select, textarea {
+    background: #fff; border: 1.5px solid #c9d7e4; border-radius: 12px; min-height: 48px; padding: 10px 12px; width: 100%;
+  }
+  input[type="checkbox"], input[type="radio"] {
+    width: 20px; height: 20px; min-height: 0; padding: 0; flex: 0 0 auto; accent-color: #0278b9;
+  }
+  .f { display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 700; color: var(--navy); margin: 8px 0; }
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .split select { width: auto; }
+  .label { font-size: 13px; font-weight: 700; color: var(--navy); margin: 8px 0; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag { border: 1.5px solid var(--line); background: #fff; border-radius: 999px; min-height: 40px; padding: 6px 12px; font-weight: 700; color: var(--navy); }
+  .tag.on { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .formgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .primary, .ghost { border-radius: 12px; min-height: 50px; padding: 12px 16px; font-weight: 700; }
+  .primary { background: var(--blue); color: #fff; border: 0; }
+  .primary:hover { background: var(--navy); }
+  .ghost { background: #fff; color: var(--navy); border: 1.5px solid var(--line); }
+  .err { color: #b4234a; font-weight: 700; min-height: 0; }
+  .err:empty { display: none; }
+  .banner { background: #fff4f7; color: #8d2454; border-radius: 12px; padding: 10px 12px; }
+  .desk { display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: 14px; }
+  .folder {
+    width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 8px;
+    min-height: 52px; margin-bottom: 8px; border-radius: 12px; border: 1.5px solid var(--line);
+    background: #fff; padding: 8px 12px; text-align: left; font-weight: 700; color: var(--navy);
+  }
+  .folder.on { border-color: var(--blue); background: #eaf6fc; }
+  .folder .n { background: var(--navy); color: #fff; border-radius: 999px; min-width: 28px; text-align: center; padding: 2px 8px; }
+  .folder.urg .n { background: var(--pink); }
+  .folder.sm .n { background: #0e6e6c; }
+  table.tickets { width: 100%; border-collapse: collapse; }
+  table.tickets th { text-align: left; font-size: 12px; color: var(--muted); padding: 6px; }
+  table.tickets td { padding: 10px 6px; border-top: 1px solid #e5eef5; vertical-align: top; }
+  table.tickets select { min-height: 40px; }
+  .catgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .cattile { text-align: left; background: #fff; border: 1.5px solid var(--line); border-radius: 12px; min-height: 64px; padding: 8px 10px; }
+  .cattile b { display: block; color: var(--blue); }
+  .cattile.on { border-color: var(--blue); background: #eaf6fc; }
+  .cattile.urg.on, .cattile.urg { background: #fff7fa; }
+  .picks { display: flex; flex-direction: column; gap: 8px; }
+  .success { display: grid; grid-template-columns: 1fr 240px; gap: 18px; align-items: center; }
+  .success .hrow { justify-content: flex-start; }
+  .success .meta { max-width: 220px; }
+  #qr { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 8px; }
+  #qr svg { width: 200px; height: 200px; display: block; }
+  .digest { background: #fff; border: 1px solid var(--line); border-left: 4px solid var(--pink); border-radius: 12px; padding: 12px 14px; margin: 10px 0; }
+  .empty { color: var(--muted); }
+  .checkline { font-weight: 700; }
+  @media (max-width: 1100px) {
+    .cards, .formgrid, .cols, .desk, .success { grid-template-columns: 1fr; }
+  }
+
+  .hero { display: grid; grid-template-columns: 280px 1fr; background: #fff; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; margin-bottom: 14px; }
+  .hero img { width: 100%; height: 168px; object-fit: cover; }
+  .hero .copy { padding: 16px 18px 14px; }
+  .hero .copy p { margin: 6px 0 0; color: var(--muted); }
+  .hero.slim img { height: 132px; }
+  .next { margin-top: 6px; font-size: 13.5px; color: var(--navy); }
+  .next b { color: #0e6e6c; font-weight: 700; }
+  .tiny { color: #8a96a0; font-weight: 600; }
+  .ops { margin-top: 12px; background: #f4f6f8; border-radius: 12px; padding: 8px 10px; color: #6a7680; }
+  .ops summary { cursor: pointer; font-weight: 700; color: #6a7680; }
+  .opshead { margin: 14px 0 6px; color: #8a96a0; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+  .muted-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .cattile.tiny { min-height: 40px; background: #f4f6f8; color: #5c6b76; font-size: 13px; flex: 1; }
+  .folder.muted { background: #f7f8fa; color: #6a7680; }
+  .folder.muted .n { background: #9aa6b0; }
+  .seg.wrap label { flex: 0 1 auto; }
+  div.stat { background: #fff; border: 1.5px solid var(--line); border-radius: 14px; min-height: 64px; min-width: 120px; padding: 8px 12px; font-weight: 600; font-size: 13px; color: var(--muted); }
+
+</style>
+</head>
+<body>
+<header class="appbar">
+  <img alt="Divi Resorts" src="data:image/png;base64,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">
+  <div class="brand">
+    <strong>Divi Little Bay · Mobile Concierge</strong>
+    <span>Mobile Concierge Registration · A guest service of Divi Little Bay Beach Resort</span>
+  </div>
+  <nav id="nav"></nav>
+</header>
+<div class="accent"></div>
+<main id="app"></main>
+<script>
+//---------------------------------------------------------------------
+//
+// QR Code Generator for JavaScript
+//
+// Copyright (c) 2009 Kazuhiko Arase
+//
+// URL: http://www.d-project.com/
+//
+// Licensed under the MIT license:
+//  http://www.opensource.org/licenses/mit-license.php
+//
+// The word 'QR Code' is registered trademark of
+// DENSO WAVE INCORPORATED
+//  http://www.denso-wave.com/qrcode/faqpatent-e.html
+//
+//---------------------------------------------------------------------
+
+var qrcode = function() {
+
+  //---------------------------------------------------------------------
+  // qrcode
+  //---------------------------------------------------------------------
+
+  /**
+   * qrcode
+   * @param typeNumber 1 to 40
+   * @param errorCorrectionLevel 'L','M','Q','H'
+   */
+  var qrcode = function(typeNumber, errorCorrectionLevel) {
+
+    var PAD0 = 0xEC;
+    var PAD1 = 0x11;
+
+    var _typeNumber = typeNumber;
+    var _errorCorrectionLevel = QRErrorCorrectionLevel[errorCorrectionLevel];
+    var _modules = null;
+    var _moduleCount = 0;
+    var _dataCache = null;
+    var _dataList = [];
+
+    var _this = {};
+
+    var makeImpl = function(test, maskPattern) {
+
+      _moduleCount = _typeNumber * 4 + 17;
+      _modules = function(moduleCount) {
+        var modules = new Array(moduleCount);
+        for (var row = 0; row < moduleCount; row += 1) {
+          modules[row] = new Array(moduleCount);
+          for (var col = 0; col < moduleCount; col += 1) {
+            modules[row][col] = null;
+          }
+        }
+        return modules;
+      }(_moduleCount);
+
+      setupPositionProbePattern(0, 0);
+      setupPositionProbePattern(_moduleCount - 7, 0);
+      setupPositionProbePattern(0, _moduleCount - 7);
+      setupPositionAdjustPattern();
+      setupTimingPattern();
+      setupTypeInfo(test, maskPattern);
+
+      if (_typeNumber >= 7) {
+        setupTypeNumber(test);
+      }
+
+      if (_dataCache == null) {
+        _dataCache = createData(_typeNumber, _errorCorrectionLevel, _dataList);
+      }
+
+      mapData(_dataCache, maskPattern);
+    };
+
+    var setupPositionProbePattern = function(row, col) {
+
+      for (var r = -1; r <= 7; r += 1) {
+
+        if (row + r <= -1 || _moduleCount <= row + r) continue;
+
+        for (var c = -1; c <= 7; c += 1) {
+
+          if (col + c <= -1 || _moduleCount <= col + c) continue;
+
+          if ( (0 <= r && r <= 6 && (c == 0 || c == 6) )
+              || (0 <= c && c <= 6 && (r == 0 || r == 6) )
+              || (2 <= r && r <= 4 && 2 <= c && c <= 4) ) {
+            _modules[row + r][col + c] = true;
+          } else {
+            _modules[row + r][col + c] = false;
+          }
+        }
+      }
+    };
+
+    var getBestMaskPattern = function() {
+
+      var minLostPoint = 0;
+      var pattern = 0;
+
+      for (var i = 0; i < 8; i += 1) {
+
+        makeImpl(true, i);
+
+        var lostPoint = QRUtil.getLostPoint(_this);
+
+        if (i == 0 || minLostPoint > lostPoint) {
+          minLostPoint = lostPoint;
+          pattern = i;
+        }
+      }
+
+      return pattern;
+    };
+
+    var setupTimingPattern = function() {
+
+      for (var r = 8; r < _moduleCount - 8; r += 1) {
+        if (_modules[r][6] != null) {
+          continue;
+        }
+        _modules[r][6] = (r % 2 == 0);
+      }
+
+      for (var c = 8; c < _moduleCount - 8; c += 1) {
+        if (_modules[6][c] != null) {
+          continue;
+        }
+        _modules[6][c] = (c % 2 == 0);
+      }
+    };
+
+    var setupPositionAdjustPattern = function() {
+
+      var pos = QRUtil.getPatternPosition(_typeNumber);
+
+      for (var i = 0; i < pos.length; i += 1) {
+
+        for (var j = 0; j < pos.length; j += 1) {
+
+          var row = pos[i];
+          var col = pos[j];
+
+          if (_modules[row][col] != null) {
+            continue;
+          }
+
+          for (var r = -2; r <= 2; r += 1) {
+
+            for (var c = -2; c <= 2; c += 1) {
+
+              if (r == -2 || r == 2 || c == -2 || c == 2
+                  || (r == 0 && c == 0) ) {
+                _modules[row + r][col + c] = true;
+              } else {
+                _modules[row + r][col + c] = false;
+              }
+            }
+          }
+        }
+      }
+    };
+
+    var setupTypeNumber = function(test) {
+
+      var bits = QRUtil.getBCHTypeNumber(_typeNumber);
+
+      for (var i = 0; i < 18; i += 1) {
+        var mod = (!test && ( (bits >> i) & 1) == 1);
+        _modules[Math.floor(i / 3)][i % 3 + _moduleCount - 8 - 3] = mod;
+      }
+
+      for (var i = 0; i < 18; i += 1) {
+        var mod = (!test && ( (bits >> i) & 1) == 1);
+        _modules[i % 3 + _moduleCount - 8 - 3][Math.floor(i / 3)] = mod;
+      }
+    };
+
+    var setupTypeInfo = function(test, maskPattern) {
+
+      var data = (_errorCorrectionLevel << 3) | maskPattern;
+      var bits = QRUtil.getBCHTypeInfo(data);
+
+      // vertical
+      for (var i = 0; i < 15; i += 1) {
+
+        var mod = (!test && ( (bits >> i) & 1) == 1);
+
+        if (i < 6) {
+          _modules[i][8] = mod;
+        } else if (i < 8) {
+          _modules[i + 1][8] = mod;
+        } else {
+          _modules[_moduleCount - 15 + i][8] = mod;
+        }
+      }
+
+      // horizontal
+      for (var i = 0; i < 15; i += 1) {
+
+        var mod = (!test && ( (bits >> i) & 1) == 1);
+
+        if (i < 8) {
+          _modules[8][_moduleCount - i - 1] = mod;
+        } else if (i < 9) {
+          _modules[8][15 - i - 1 + 1] = mod;
+        } else {
+          _modules[8][15 - i - 1] = mod;
+        }
+      }
+
+      // fixed module
+      _modules[_moduleCount - 8][8] = (!test);
+    };
+
+    var mapData = function(data, maskPattern) {
+
+      var inc = -1;
+      var row = _moduleCount - 1;
+      var bitIndex = 7;
+      var byteIndex = 0;
+      var maskFunc = QRUtil.getMaskFunction(maskPattern);
+
+      for (var col = _moduleCount - 1; col > 0; col -= 2) {
+
+        if (col == 6) col -= 1;
+
+        while (true) {
+
+          for (var c = 0; c < 2; c += 1) {
+
+            if (_modules[row][col - c] == null) {
+
+              var dark = false;
+
+              if (byteIndex < data.length) {
+                dark = ( ( (data[byteIndex] >>> bitIndex) & 1) == 1);
+              }
+
+              var mask = maskFunc(row, col - c);
+
+              if (mask) {
+                dark = !dark;
+              }
+
+              _modules[row][col - c] = dark;
+              bitIndex -= 1;
+
+              if (bitIndex == -1) {
+                byteIndex += 1;
+                bitIndex = 7;
+              }
+            }
+          }
+
+          row += inc;
+
+          if (row < 0 || _moduleCount <= row) {
+            row -= inc;
+            inc = -inc;
+            break;
+          }
+        }
+      }
+    };
+
+    var createBytes = function(buffer, rsBlocks) {
+
+      var offset = 0;
+
+      var maxDcCount = 0;
+      var maxEcCount = 0;
+
+      var dcdata = new Array(rsBlocks.length);
+      var ecdata = new Array(rsBlocks.length);
+
+      for (var r = 0; r < rsBlocks.length; r += 1) {
+
+        var dcCount = rsBlocks[r].dataCount;
+        var ecCount = rsBlocks[r].totalCount - dcCount;
+
+        maxDcCount = Math.max(maxDcCount, dcCount);
+        maxEcCount = Math.max(maxEcCount, ecCount);
+
+        dcdata[r] = new Array(dcCount);
+
+        for (var i = 0; i < dcdata[r].length; i += 1) {
+          dcdata[r][i] = 0xff & buffer.getBuffer()[i + offset];
+        }
+        offset += dcCount;
+
+        var rsPoly = QRUtil.getErrorCorrectPolynomial(ecCount);
+        var rawPoly = qrPolynomial(dcdata[r], rsPoly.getLength() - 1);
+
+        var modPoly = rawPoly.mod(rsPoly);
+        ecdata[r] = new Array(rsPoly.getLength() - 1);
+        for (var i = 0; i < ecdata[r].length; i += 1) {
+          var modIndex = i + modPoly.getLength() - ecdata[r].length;
+          ecdata[r][i] = (modIndex >= 0)? modPoly.getAt(modIndex) : 0;
+        }
+      }
+
+      var totalCodeCount = 0;
+      for (var i = 0; i < rsBlocks.length; i += 1) {
+        totalCodeCount += rsBlocks[i].totalCount;
+      }
+
+      var data = new Array(totalCodeCount);
+      var index = 0;
+
+      for (var i = 0; i < maxDcCount; i += 1) {
+        for (var r = 0; r < rsBlocks.length; r += 1) {
+          if (i < dcdata[r].length) {
+            data[index] = dcdata[r][i];
+            index += 1;
+          }
+        }
+      }
+
+      for (var i = 0; i < maxEcCount; i += 1) {
+        for (var r = 0; r < rsBlocks.length; r += 1) {
+          if (i < ecdata[r].length) {
+            data[index] = ecdata[r][i];
+            index += 1;
+          }
+        }
+      }
+
+      return data;
+    };
+
+    var createData = function(typeNumber, errorCorrectionLevel, dataList) {
+
+      var rsBlocks = QRRSBlock.getRSBlocks(typeNumber, errorCorrectionLevel);
+
+      var buffer = qrBitBuffer();
+
+      for (var i = 0; i < dataList.length; i += 1) {
+        var data = dataList[i];
+        buffer.put(data.getMode(), 4);
+        buffer.put(data.getLength(), QRUtil.getLengthInBits(data.getMode(), typeNumber) );
+        data.write(buffer);
+      }
+
+      // calc num max data.
+      var totalDataCount = 0;
+      for (var i = 0; i < rsBlocks.length; i += 1) {
+        totalDataCount += rsBlocks[i].dataCount;
+      }
+
+      if (buffer.getLengthInBits() > totalDataCount * 8) {
+        throw 'code length overflow. ('
+          + buffer.getLengthInBits()
+          + '>'
+          + totalDataCount * 8
+          + ')';
+      }
+
+      // end code
+      if (buffer.getLengthInBits() + 4 <= totalDataCount * 8) {
+        buffer.put(0, 4);
+      }
+
+      // padding
+      while (buffer.getLengthInBits() % 8 != 0) {
+        buffer.putBit(false);
+      }
+
+      // padding
+      while (true) {
+
+        if (buffer.getLengthInBits() >= totalDataCount * 8) {
+          break;
+        }
+        buffer.put(PAD0, 8);
+
+        if (buffer.getLengthInBits() >= totalDataCount * 8) {
+          break;
+        }
+        buffer.put(PAD1, 8);
+      }
+
+      return createBytes(buffer, rsBlocks);
+    };
+
+    _this.addData = function(data, mode) {
+
+      mode = mode || 'Byte';
+
+      var newData = null;
+
+      switch(mode) {
+      case 'Numeric' :
+        newData = qrNumber(data);
+        break;
+      case 'Alphanumeric' :
+        newData = qrAlphaNum(data);
+        break;
+      case 'Byte' :
+        newData = qr8BitByte(data);
+        break;
+      case 'Kanji' :
+        newData = qrKanji(data);
+        break;
+      default :
+        throw 'mode:' + mode;
+      }
+
+      _dataList.push(newData);
+      _dataCache = null;
+    };
+
+    _this.isDark = function(row, col) {
+      if (row < 0 || _moduleCount <= row || col < 0 || _moduleCount <= col) {
+        throw row + ',' + col;
+      }
+      return _modules[row][col];
+    };
+
+    _this.getModuleCount = function() {
+      return _moduleCount;
+    };
+
+    _this.make = function() {
+      if (_typeNumber < 1) {
+        var typeNumber = 1;
+
+        for (; typeNumber < 40; typeNumber++) {
+          var rsBlocks = QRRSBlock.getRSBlocks(typeNumber, _errorCorrectionLevel);
+          var buffer = qrBitBuffer();
+
+          for (var i = 0; i < _dataList.length; i++) {
+            var data = _dataList[i];
+            buffer.put(data.getMode(), 4);
+            buffer.put(data.getLength(), QRUtil.getLengthInBits(data.getMode(), typeNumber) );
+            data.write(buffer);
+          }
+
+          var totalDataCount = 0;
+          for (var i = 0; i < rsBlocks.length; i++) {
+            totalDataCount += rsBlocks[i].dataCount;
+          }
+
+          if (buffer.getLengthInBits() <= totalDataCount * 8) {
+            break;
+          }
+        }
+
+        _typeNumber = typeNumber;
+      }
+
+      makeImpl(false, getBestMaskPattern() );
+    };
+
+    _this.createTableTag = function(cellSize, margin) {
+
+      cellSize = cellSize || 2;
+      margin = (typeof margin == 'undefined')? cellSize * 4 : margin;
+
+      var qrHtml = '';
+
+      qrHtml += '<table style="';
+      qrHtml += ' border-width: 0px; border-style: none;';
+      qrHtml += ' border-collapse: collapse;';
+      qrHtml += ' padding: 0px; margin: ' + margin + 'px;';
+      qrHtml += '">';
+      qrHtml += '<tbody>';
+
+      for (var r = 0; r < _this.getModuleCount(); r += 1) {
+
+        qrHtml += '<tr>';
+
+        for (var c = 0; c < _this.getModuleCount(); c += 1) {
+          qrHtml += '<td style="';
+          qrHtml += ' border-width: 0px; border-style: none;';
+          qrHtml += ' border-collapse: collapse;';
+          qrHtml += ' padding: 0px; margin: 0px;';
+          qrHtml += ' width: ' + cellSize + 'px;';
+          qrHtml += ' height: ' + cellSize + 'px;';
+          qrHtml += ' background-color: ';
+          qrHtml += _this.isDark(r, c)? '#000000' : '#ffffff';
+          qrHtml += ';';
+          qrHtml += '"/>';
+        }
+
+        qrHtml += '</tr>';
+      }
+
+      qrHtml += '</tbody>';
+      qrHtml += '</table>';
+
+      return qrHtml;
+    };
+
+    _this.createSvgTag = function(cellSize, margin, alt, title) {
+
+      var opts = {};
+      if (typeof arguments[0] == 'object') {
+        // Called by options.
+        opts = arguments[0];
+        // overwrite cellSize and margin.
+        cellSize = opts.cellSize;
+        margin = opts.margin;
+        alt = opts.alt;
+        title = opts.title;
+      }
+
+      cellSize = cellSize || 2;
+      margin = (typeof margin == 'undefined')? cellSize * 4 : margin;
+
+      // Compose alt property surrogate
+      alt = (typeof alt === 'string') ? {text: alt} : alt || {};
+      alt.text = alt.text || null;
+      alt.id = (alt.text) ? alt.id || 'qrcode-description' : null;
+
+      // Compose title property surrogate
+      title = (typeof title === 'string') ? {text: title} : title || {};
+      title.text = title.text || null;
+      title.id = (title.text) ? title.id || 'qrcode-title' : null;
+
+      var size = _this.getModuleCount() * cellSize + margin * 2;
+      var c, mc, r, mr, qrSvg='', rect;
+
+      rect = 'l' + cellSize + ',0 0,' + cellSize +
+        ' -' + cellSize + ',0 0,-' + cellSize + 'z ';
+
+      qrSvg += '<svg version="1.1" xmlns="http://www.w3.org/2000/svg"';
+      qrSvg += !opts.scalable ? ' width="' + size + 'px" height="' + size + 'px"' : '';
+      qrSvg += ' viewBox="0 0 ' + size + ' ' + size + '" ';
+      qrSvg += ' preserveAspectRatio="xMinYMin meet"';
+      qrSvg += (title.text || alt.text) ? ' role="img" aria-labelledby="' +
+          escapeXml([title.id, alt.id].join(' ').trim() ) + '"' : '';
+      qrSvg += '>';
+      qrSvg += (title.text) ? '<title id="' + escapeXml(title.id) + '">' +
+          escapeXml(title.text) + '</title>' : '';
+      qrSvg += (alt.text) ? '<description id="' + escapeXml(alt.id) + '">' +
+          escapeXml(alt.text) + '</description>' : '';
+      qrSvg += '<rect width="100%" height="100%" fill="white" cx="0" cy="0"/>';
+      qrSvg += '<path d="';
+
+      for (r = 0; r < _this.getModuleCount(); r += 1) {
+        mr = r * cellSize + margin;
+        for (c = 0; c < _this.getModuleCount(); c += 1) {
+          if (_this.isDark(r, c) ) {
+            mc = c*cellSize+margin;
+            qrSvg += 'M' + mc + ',' + mr + rect;
+          }
+        }
+      }
+
+      qrSvg += '" stroke="transparent" fill="black"/>';
+      qrSvg += '</svg>';
+
+      return qrSvg;
+    };
+
+    _this.createDataURL = function(cellSize, margin) {
+
+      cellSize = cellSize || 2;
+      margin = (typeof margin == 'undefined')? cellSize * 4 : margin;
+
+      var size = _this.getModuleCount() * cellSize + margin * 2;
+      var min = margin;
+      var max = size - margin;
+
+      return createDataURL(size, size, function(x, y) {
+        if (min <= x && x < max && min <= y && y < max) {
+          var c = Math.floor( (x - min) / cellSize);
+          var r = Math.floor( (y - min) / cellSize);
+          return _this.isDark(r, c)? 0 : 1;
+        } else {
+          return 1;
+        }
+      } );
+    };
+
+    _this.createImgTag = function(cellSize, margin, alt) {
+
+      cellSize = cellSize || 2;
+      margin = (typeof margin == 'undefined')? cellSize * 4 : margin;
+
+      var size = _this.getModuleCount() * cellSize + margin * 2;
+
+      var img = '';
+      img += '<img';
+      img += '\u0020src="';
+      img += _this.createDataURL(cellSize, margin);
+      img += '"';
+      img += '\u0020width="';
+      img += size;
+      img += '"';
+      img += '\u0020height="';
+      img += size;
+      img += '"';
+      if (alt) {
+        img += '\u0020alt="';
+        img += escapeXml(alt);
+        img += '"';
+      }
+      img += '/>';
+
+      return img;
+    };
+
+    var escapeXml = function(s) {
+      var escaped = '';
+      for (var i = 0; i < s.length; i += 1) {
+        var c = s.charAt(i);
+        switch(c) {
+        case '<': escaped += '&lt;'; break;
+        case '>': escaped += '&gt;'; break;
+        case '&': escaped += '&amp;'; break;
+        case '"': escaped += '&quot;'; break;
+        default : escaped += c; break;
+        }
+      }
+      return escaped;
+    };
+
+    var _createHalfASCII = function(margin) {
+      var cellSize = 1;
+      margin = (typeof margin == 'undefined')? cellSize * 2 : margin;
+
+      var size = _this.getModuleCount() * cellSize + margin * 2;
+      var min = margin;
+      var max = size - margin;
+
+      var y, x, r1, r2, p;
+
+      var blocks = {
+        '██': '█',
+        '█ ': '▀',
+        ' █': '▄',
+        '  ': ' '
+      };
+
+      var blocksLastLineNoMargin = {
+        '██': '▀',
+        '█ ': '▀',
+        ' █': ' ',
+        '  ': ' '
+      };
+
+      var ascii = '';
+      for (y = 0; y < size; y += 2) {
+        r1 = Math.floor((y - min) / cellSize);
+        r2 = Math.floor((y + 1 - min) / cellSize);
+        for (x = 0; x < size; x += 1) {
+          p = '█';
+
+          if (min <= x && x < max && min <= y && y < max && _this.isDark(r1, Math.floor((x - min) / cellSize))) {
+            p = ' ';
+          }
+
+          if (min <= x && x < max && min <= y+1 && y+1 < max && _this.isDark(r2, Math.floor((x - min) / cellSize))) {
+            p += ' ';
+          }
+          else {
+            p += '█';
+          }
+
+          // Output 2 characters per pixel, to create full square. 1 character per pixels gives only half width of square.
+          ascii += (margin < 1 && y+1 >= max) ? blocksLastLineNoMargin[p] : blocks[p];
+        }
+
+        ascii += '\n';
+      }
+
+      if (size % 2 && margin > 0) {
+        return ascii.substring(0, ascii.length - size - 1) + Array(size+1).join('▀');
+      }
+
+      return ascii.substring(0, ascii.length-1);
+    };
+
+    _this.createASCII = function(cellSize, margin) {
+      cellSize = cellSize || 1;
+
+      if (cellSize < 2) {
+        return _createHalfASCII(margin);
+      }
+
+      cellSize -= 1;
+      margin = (typeof margin == 'undefined')? cellSize * 2 : margin;
+
+      var size = _this.getModuleCount() * cellSize + margin * 2;
+      var min = margin;
+      var max = size - margin;
+
+      var y, x, r, p;
+
+      var white = Array(cellSize+1).join('██');
+      var black = Array(cellSize+1).join('  ');
+
+      var ascii = '';
+      var line = '';
+      for (y = 0; y < size; y += 1) {
+        r = Math.floor( (y - min) / cellSize);
+        line = '';
+        for (x = 0; x < size; x += 1) {
+          p = 1;
+
+          if (min <= x && x < max && min <= y && y < max && _this.isDark(r, Math.floor((x - min) / cellSize))) {
+            p = 0;
+          }
+
+          // Output 2 characters per pixel, to create full square. 1 character per pixels gives only half width of square.
+          line += p ? white : black;
+        }
+
+        for (r = 0; r < cellSize; r += 1) {
+          ascii += line + '\n';
+        }
+      }
+
+      return ascii.substring(0, ascii.length-1);
+    };
+
+    _this.renderTo2dContext = function(context, cellSize) {
+      cellSize = cellSize || 2;
+      var length = _this.getModuleCount();
+      for (var row = 0; row < length; row++) {
+        for (var col = 0; col < length; col++) {
+          context.fillStyle = _this.isDark(row, col) ? 'black' : 'white';
+          context.fillRect(row * cellSize, col * cellSize, cellSize, cellSize);
+        }
+      }
+    }
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // qrcode.stringToBytes
+  //---------------------------------------------------------------------
+
+  qrcode.stringToBytesFuncs = {
+    'default' : function(s) {
+      var bytes = [];
+      for (var i = 0; i < s.length; i += 1) {
+        var c = s.charCodeAt(i);
+        bytes.push(c & 0xff);
+      }
+      return bytes;
+    }
+  };
+
+  qrcode.stringToBytes = qrcode.stringToBytesFuncs['default'];
+
+  //---------------------------------------------------------------------
+  // qrcode.createStringToBytes
+  //---------------------------------------------------------------------
+
+  /**
+   * @param unicodeData base64 string of byte array.
+   * [16bit Unicode],[16bit Bytes], ...
+   * @param numChars
+   */
+  qrcode.createStringToBytes = function(unicodeData, numChars) {
+
+    // create conversion map.
+
+    var unicodeMap = function() {
+
+      var bin = base64DecodeInputStream(unicodeData);
+      var read = function() {
+        var b = bin.read();
+        if (b == -1) throw 'eof';
+        return b;
+      };
+
+      var count = 0;
+      var unicodeMap = {};
+      while (true) {
+        var b0 = bin.read();
+        if (b0 == -1) break;
+        var b1 = read();
+        var b2 = read();
+        var b3 = read();
+        var k = String.fromCharCode( (b0 << 8) | b1);
+        var v = (b2 << 8) | b3;
+        unicodeMap[k] = v;
+        count += 1;
+      }
+      if (count != numChars) {
+        throw count + ' != ' + numChars;
+      }
+
+      return unicodeMap;
+    }();
+
+    var unknownChar = '?'.charCodeAt(0);
+
+    return function(s) {
+      var bytes = [];
+      for (var i = 0; i < s.length; i += 1) {
+        var c = s.charCodeAt(i);
+        if (c < 128) {
+          bytes.push(c);
+        } else {
+          var b = unicodeMap[s.charAt(i)];
+          if (typeof b == 'number') {
+            if ( (b & 0xff) == b) {
+              // 1byte
+              bytes.push(b);
+            } else {
+              // 2bytes
+              bytes.push(b >>> 8);
+              bytes.push(b & 0xff);
+            }
+          } else {
+            bytes.push(unknownChar);
+          }
+        }
+      }
+      return bytes;
+    };
+  };
+
+  //---------------------------------------------------------------------
+  // QRMode
+  //---------------------------------------------------------------------
+
+  var QRMode = {
+    MODE_NUMBER :    1 << 0,
+    MODE_ALPHA_NUM : 1 << 1,
+    MODE_8BIT_BYTE : 1 << 2,
+    MODE_KANJI :     1 << 3
+  };
+
+  //---------------------------------------------------------------------
+  // QRErrorCorrectionLevel
+  //---------------------------------------------------------------------
+
+  var QRErrorCorrectionLevel = {
+    L : 1,
+    M : 0,
+    Q : 3,
+    H : 2
+  };
+
+  //---------------------------------------------------------------------
+  // QRMaskPattern
+  //---------------------------------------------------------------------
+
+  var QRMaskPattern = {
+    PATTERN000 : 0,
+    PATTERN001 : 1,
+    PATTERN010 : 2,
+    PATTERN011 : 3,
+    PATTERN100 : 4,
+    PATTERN101 : 5,
+    PATTERN110 : 6,
+    PATTERN111 : 7
+  };
+
+  //---------------------------------------------------------------------
+  // QRUtil
+  //---------------------------------------------------------------------
+
+  var QRUtil = function() {
+
+    var PATTERN_POSITION_TABLE = [
+      [],
+      [6, 18],
+      [6, 22],
+      [6, 26],
+      [6, 30],
+      [6, 34],
+      [6, 22, 38],
+      [6, 24, 42],
+      [6, 26, 46],
+      [6, 28, 50],
+      [6, 30, 54],
+      [6, 32, 58],
+      [6, 34, 62],
+      [6, 26, 46, 66],
+      [6, 26, 48, 70],
+      [6, 26, 50, 74],
+      [6, 30, 54, 78],
+      [6, 30, 56, 82],
+      [6, 30, 58, 86],
+      [6, 34, 62, 90],
+      [6, 28, 50, 72, 94],
+      [6, 26, 50, 74, 98],
+      [6, 30, 54, 78, 102],
+      [6, 28, 54, 80, 106],
+      [6, 32, 58, 84, 110],
+      [6, 30, 58, 86, 114],
+      [6, 34, 62, 90, 118],
+      [6, 26, 50, 74, 98, 122],
+      [6, 30, 54, 78, 102, 126],
+      [6, 26, 52, 78, 104, 130],
+      [6, 30, 56, 82, 108, 134],
+      [6, 34, 60, 86, 112, 138],
+      [6, 30, 58, 86, 114, 142],
+      [6, 34, 62, 90, 118, 146],
+      [6, 30, 54, 78, 102, 126, 150],
+      [6, 24, 50, 76, 102, 128, 154],
+      [6, 28, 54, 80, 106, 132, 158],
+      [6, 32, 58, 84, 110, 136, 162],
+      [6, 26, 54, 82, 110, 138, 166],
+      [6, 30, 58, 86, 114, 142, 170]
+    ];
+    var G15 = (1 << 10) | (1 << 8) | (1 << 5) | (1 << 4) | (1 << 2) | (1 << 1) | (1 << 0);
+    var G18 = (1 << 12) | (1 << 11) | (1 << 10) | (1 << 9) | (1 << 8) | (1 << 5) | (1 << 2) | (1 << 0);
+    var G15_MASK = (1 << 14) | (1 << 12) | (1 << 10) | (1 << 4) | (1 << 1);
+
+    var _this = {};
+
+    var getBCHDigit = function(data) {
+      var digit = 0;
+      while (data != 0) {
+        digit += 1;
+        data >>>= 1;
+      }
+      return digit;
+    };
+
+    _this.getBCHTypeInfo = function(data) {
+      var d = data << 10;
+      while (getBCHDigit(d) - getBCHDigit(G15) >= 0) {
+        d ^= (G15 << (getBCHDigit(d) - getBCHDigit(G15) ) );
+      }
+      return ( (data << 10) | d) ^ G15_MASK;
+    };
+
+    _this.getBCHTypeNumber = function(data) {
+      var d = data << 12;
+      while (getBCHDigit(d) - getBCHDigit(G18) >= 0) {
+        d ^= (G18 << (getBCHDigit(d) - getBCHDigit(G18) ) );
+      }
+      return (data << 12) | d;
+    };
+
+    _this.getPatternPosition = function(typeNumber) {
+      return PATTERN_POSITION_TABLE[typeNumber - 1];
+    };
+
+    _this.getMaskFunction = function(maskPattern) {
+
+      switch (maskPattern) {
+
+      case QRMaskPattern.PATTERN000 :
+        return function(i, j) { return (i + j) % 2 == 0; };
+      case QRMaskPattern.PATTERN001 :
+        return function(i, j) { return i % 2 == 0; };
+      case QRMaskPattern.PATTERN010 :
+        return function(i, j) { return j % 3 == 0; };
+      case QRMaskPattern.PATTERN011 :
+        return function(i, j) { return (i + j) % 3 == 0; };
+      case QRMaskPattern.PATTERN100 :
+        return function(i, j) { return (Math.floor(i / 2) + Math.floor(j / 3) ) % 2 == 0; };
+      case QRMaskPattern.PATTERN101 :
+        return function(i, j) { return (i * j) % 2 + (i * j) % 3 == 0; };
+      case QRMaskPattern.PATTERN110 :
+        return function(i, j) { return ( (i * j) % 2 + (i * j) % 3) % 2 == 0; };
+      case QRMaskPattern.PATTERN111 :
+        return function(i, j) { return ( (i * j) % 3 + (i + j) % 2) % 2 == 0; };
+
+      default :
+        throw 'bad maskPattern:' + maskPattern;
+      }
+    };
+
+    _this.getErrorCorrectPolynomial = function(errorCorrectLength) {
+      var a = qrPolynomial([1], 0);
+      for (var i = 0; i < errorCorrectLength; i += 1) {
+        a = a.multiply(qrPolynomial([1, QRMath.gexp(i)], 0) );
+      }
+      return a;
+    };
+
+    _this.getLengthInBits = function(mode, type) {
+
+      if (1 <= type && type < 10) {
+
+        // 1 - 9
+
+        switch(mode) {
+        case QRMode.MODE_NUMBER    : return 10;
+        case QRMode.MODE_ALPHA_NUM : return 9;
+        case QRMode.MODE_8BIT_BYTE : return 8;
+        case QRMode.MODE_KANJI     : return 8;
+        default :
+          throw 'mode:' + mode;
+        }
+
+      } else if (type < 27) {
+
+        // 10 - 26
+
+        switch(mode) {
+        case QRMode.MODE_NUMBER    : return 12;
+        case QRMode.MODE_ALPHA_NUM : return 11;
+        case QRMode.MODE_8BIT_BYTE : return 16;
+        case QRMode.MODE_KANJI     : return 10;
+        default :
+          throw 'mode:' + mode;
+        }
+
+      } else if (type < 41) {
+
+        // 27 - 40
+
+        switch(mode) {
+        case QRMode.MODE_NUMBER    : return 14;
+        case QRMode.MODE_ALPHA_NUM : return 13;
+        case QRMode.MODE_8BIT_BYTE : return 16;
+        case QRMode.MODE_KANJI     : return 12;
+        default :
+          throw 'mode:' + mode;
+        }
+
+      } else {
+        throw 'type:' + type;
+      }
+    };
+
+    _this.getLostPoint = function(qrcode) {
+
+      var moduleCount = qrcode.getModuleCount();
+
+      var lostPoint = 0;
+
+      // LEVEL1
+
+      for (var row = 0; row < moduleCount; row += 1) {
+        for (var col = 0; col < moduleCount; col += 1) {
+
+          var sameCount = 0;
+          var dark = qrcode.isDark(row, col);
+
+          for (var r = -1; r <= 1; r += 1) {
+
+            if (row + r < 0 || moduleCount <= row + r) {
+              continue;
+            }
+
+            for (var c = -1; c <= 1; c += 1) {
+
+              if (col + c < 0 || moduleCount <= col + c) {
+                continue;
+              }
+
+              if (r == 0 && c == 0) {
+                continue;
+              }
+
+              if (dark == qrcode.isDark(row + r, col + c) ) {
+                sameCount += 1;
+              }
+            }
+          }
+
+          if (sameCount > 5) {
+            lostPoint += (3 + sameCount - 5);
+          }
+        }
+      };
+
+      // LEVEL2
+
+      for (var row = 0; row < moduleCount - 1; row += 1) {
+        for (var col = 0; col < moduleCount - 1; col += 1) {
+          var count = 0;
+          if (qrcode.isDark(row, col) ) count += 1;
+          if (qrcode.isDark(row + 1, col) ) count += 1;
+          if (qrcode.isDark(row, col + 1) ) count += 1;
+          if (qrcode.isDark(row + 1, col + 1) ) count += 1;
+          if (count == 0 || count == 4) {
+            lostPoint += 3;
+          }
+        }
+      }
+
+      // LEVEL3
+
+      for (var row = 0; row < moduleCount; row += 1) {
+        for (var col = 0; col < moduleCount - 6; col += 1) {
+          if (qrcode.isDark(row, col)
+              && !qrcode.isDark(row, col + 1)
+              &&  qrcode.isDark(row, col + 2)
+              &&  qrcode.isDark(row, col + 3)
+              &&  qrcode.isDark(row, col + 4)
+              && !qrcode.isDark(row, col + 5)
+              &&  qrcode.isDark(row, col + 6) ) {
+            lostPoint += 40;
+          }
+        }
+      }
+
+      for (var col = 0; col < moduleCount; col += 1) {
+        for (var row = 0; row < moduleCount - 6; row += 1) {
+          if (qrcode.isDark(row, col)
+              && !qrcode.isDark(row + 1, col)
+              &&  qrcode.isDark(row + 2, col)
+              &&  qrcode.isDark(row + 3, col)
+              &&  qrcode.isDark(row + 4, col)
+              && !qrcode.isDark(row + 5, col)
+              &&  qrcode.isDark(row + 6, col) ) {
+            lostPoint += 40;
+          }
+        }
+      }
+
+      // LEVEL4
+
+      var darkCount = 0;
+
+      for (var col = 0; col < moduleCount; col += 1) {
+        for (var row = 0; row < moduleCount; row += 1) {
+          if (qrcode.isDark(row, col) ) {
+            darkCount += 1;
+          }
+        }
+      }
+
+      var ratio = Math.abs(100 * darkCount / moduleCount / moduleCount - 50) / 5;
+      lostPoint += ratio * 10;
+
+      return lostPoint;
+    };
+
+    return _this;
+  }();
+
+  //---------------------------------------------------------------------
+  // QRMath
+  //---------------------------------------------------------------------
+
+  var QRMath = function() {
+
+    var EXP_TABLE = new Array(256);
+    var LOG_TABLE = new Array(256);
+
+    // initialize tables
+    for (var i = 0; i < 8; i += 1) {
+      EXP_TABLE[i] = 1 << i;
+    }
+    for (var i = 8; i < 256; i += 1) {
+      EXP_TABLE[i] = EXP_TABLE[i - 4]
+        ^ EXP_TABLE[i - 5]
+        ^ EXP_TABLE[i - 6]
+        ^ EXP_TABLE[i - 8];
+    }
+    for (var i = 0; i < 255; i += 1) {
+      LOG_TABLE[EXP_TABLE[i] ] = i;
+    }
+
+    var _this = {};
+
+    _this.glog = function(n) {
+
+      if (n < 1) {
+        throw 'glog(' + n + ')';
+      }
+
+      return LOG_TABLE[n];
+    };
+
+    _this.gexp = function(n) {
+
+      while (n < 0) {
+        n += 255;
+      }
+
+      while (n >= 256) {
+        n -= 255;
+      }
+
+      return EXP_TABLE[n];
+    };
+
+    return _this;
+  }();
+
+  //---------------------------------------------------------------------
+  // qrPolynomial
+  //---------------------------------------------------------------------
+
+  function qrPolynomial(num, shift) {
+
+    if (typeof num.length == 'undefined') {
+      throw num.length + '/' + shift;
+    }
+
+    var _num = function() {
+      var offset = 0;
+      while (offset < num.length && num[offset] == 0) {
+        offset += 1;
+      }
+      var _num = new Array(num.length - offset + shift);
+      for (var i = 0; i < num.length - offset; i += 1) {
+        _num[i] = num[i + offset];
+      }
+      return _num;
+    }();
+
+    var _this = {};
+
+    _this.getAt = function(index) {
+      return _num[index];
+    };
+
+    _this.getLength = function() {
+      return _num.length;
+    };
+
+    _this.multiply = function(e) {
+
+      var num = new Array(_this.getLength() + e.getLength() - 1);
+
+      for (var i = 0; i < _this.getLength(); i += 1) {
+        for (var j = 0; j < e.getLength(); j += 1) {
+          num[i + j] ^= QRMath.gexp(QRMath.glog(_this.getAt(i) ) + QRMath.glog(e.getAt(j) ) );
+        }
+      }
+
+      return qrPolynomial(num, 0);
+    };
+
+    _this.mod = function(e) {
+
+      if (_this.getLength() - e.getLength() < 0) {
+        return _this;
+      }
+
+      var ratio = QRMath.glog(_this.getAt(0) ) - QRMath.glog(e.getAt(0) );
+
+      var num = new Array(_this.getLength() );
+      for (var i = 0; i < _this.getLength(); i += 1) {
+        num[i] = _this.getAt(i);
+      }
+
+      for (var i = 0; i < e.getLength(); i += 1) {
+        num[i] ^= QRMath.gexp(QRMath.glog(e.getAt(i) ) + ratio);
+      }
+
+      // recursive call
+      return qrPolynomial(num, 0).mod(e);
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // QRRSBlock
+  //---------------------------------------------------------------------
+
+  var QRRSBlock = function() {
+
+    var RS_BLOCK_TABLE = [
+
+      // L
+      // M
+      // Q
+      // H
+
+      // 1
+      [1, 26, 19],
+      [1, 26, 16],
+      [1, 26, 13],
+      [1, 26, 9],
+
+      // 2
+      [1, 44, 34],
+      [1, 44, 28],
+      [1, 44, 22],
+      [1, 44, 16],
+
+      // 3
+      [1, 70, 55],
+      [1, 70, 44],
+      [2, 35, 17],
+      [2, 35, 13],
+
+      // 4
+      [1, 100, 80],
+      [2, 50, 32],
+      [2, 50, 24],
+      [4, 25, 9],
+
+      // 5
+      [1, 134, 108],
+      [2, 67, 43],
+      [2, 33, 15, 2, 34, 16],
+      [2, 33, 11, 2, 34, 12],
+
+      // 6
+      [2, 86, 68],
+      [4, 43, 27],
+      [4, 43, 19],
+      [4, 43, 15],
+
+      // 7
+      [2, 98, 78],
+      [4, 49, 31],
+      [2, 32, 14, 4, 33, 15],
+      [4, 39, 13, 1, 40, 14],
+
+      // 8
+      [2, 121, 97],
+      [2, 60, 38, 2, 61, 39],
+      [4, 40, 18, 2, 41, 19],
+      [4, 40, 14, 2, 41, 15],
+
+      // 9
+      [2, 146, 116],
+      [3, 58, 36, 2, 59, 37],
+      [4, 36, 16, 4, 37, 17],
+      [4, 36, 12, 4, 37, 13],
+
+      // 10
+      [2, 86, 68, 2, 87, 69],
+      [4, 69, 43, 1, 70, 44],
+      [6, 43, 19, 2, 44, 20],
+      [6, 43, 15, 2, 44, 16],
+
+      // 11
+      [4, 101, 81],
+      [1, 80, 50, 4, 81, 51],
+      [4, 50, 22, 4, 51, 23],
+      [3, 36, 12, 8, 37, 13],
+
+      // 12
+      [2, 116, 92, 2, 117, 93],
+      [6, 58, 36, 2, 59, 37],
+      [4, 46, 20, 6, 47, 21],
+      [7, 42, 14, 4, 43, 15],
+
+      // 13
+      [4, 133, 107],
+      [8, 59, 37, 1, 60, 38],
+      [8, 44, 20, 4, 45, 21],
+      [12, 33, 11, 4, 34, 12],
+
+      // 14
+      [3, 145, 115, 1, 146, 116],
+      [4, 64, 40, 5, 65, 41],
+      [11, 36, 16, 5, 37, 17],
+      [11, 36, 12, 5, 37, 13],
+
+      // 15
+      [5, 109, 87, 1, 110, 88],
+      [5, 65, 41, 5, 66, 42],
+      [5, 54, 24, 7, 55, 25],
+      [11, 36, 12, 7, 37, 13],
+
+      // 16
+      [5, 122, 98, 1, 123, 99],
+      [7, 73, 45, 3, 74, 46],
+      [15, 43, 19, 2, 44, 20],
+      [3, 45, 15, 13, 46, 16],
+
+      // 17
+      [1, 135, 107, 5, 136, 108],
+      [10, 74, 46, 1, 75, 47],
+      [1, 50, 22, 15, 51, 23],
+      [2, 42, 14, 17, 43, 15],
+
+      // 18
+      [5, 150, 120, 1, 151, 121],
+      [9, 69, 43, 4, 70, 44],
+      [17, 50, 22, 1, 51, 23],
+      [2, 42, 14, 19, 43, 15],
+
+      // 19
+      [3, 141, 113, 4, 142, 114],
+      [3, 70, 44, 11, 71, 45],
+      [17, 47, 21, 4, 48, 22],
+      [9, 39, 13, 16, 40, 14],
+
+      // 20
+      [3, 135, 107, 5, 136, 108],
+      [3, 67, 41, 13, 68, 42],
+      [15, 54, 24, 5, 55, 25],
+      [15, 43, 15, 10, 44, 16],
+
+      // 21
+      [4, 144, 116, 4, 145, 117],
+      [17, 68, 42],
+      [17, 50, 22, 6, 51, 23],
+      [19, 46, 16, 6, 47, 17],
+
+      // 22
+      [2, 139, 111, 7, 140, 112],
+      [17, 74, 46],
+      [7, 54, 24, 16, 55, 25],
+      [34, 37, 13],
+
+      // 23
+      [4, 151, 121, 5, 152, 122],
+      [4, 75, 47, 14, 76, 48],
+      [11, 54, 24, 14, 55, 25],
+      [16, 45, 15, 14, 46, 16],
+
+      // 24
+      [6, 147, 117, 4, 148, 118],
+      [6, 73, 45, 14, 74, 46],
+      [11, 54, 24, 16, 55, 25],
+      [30, 46, 16, 2, 47, 17],
+
+      // 25
+      [8, 132, 106, 4, 133, 107],
+      [8, 75, 47, 13, 76, 48],
+      [7, 54, 24, 22, 55, 25],
+      [22, 45, 15, 13, 46, 16],
+
+      // 26
+      [10, 142, 114, 2, 143, 115],
+      [19, 74, 46, 4, 75, 47],
+      [28, 50, 22, 6, 51, 23],
+      [33, 46, 16, 4, 47, 17],
+
+      // 27
+      [8, 152, 122, 4, 153, 123],
+      [22, 73, 45, 3, 74, 46],
+      [8, 53, 23, 26, 54, 24],
+      [12, 45, 15, 28, 46, 16],
+
+      // 28
+      [3, 147, 117, 10, 148, 118],
+      [3, 73, 45, 23, 74, 46],
+      [4, 54, 24, 31, 55, 25],
+      [11, 45, 15, 31, 46, 16],
+
+      // 29
+      [7, 146, 116, 7, 147, 117],
+      [21, 73, 45, 7, 74, 46],
+      [1, 53, 23, 37, 54, 24],
+      [19, 45, 15, 26, 46, 16],
+
+      // 30
+      [5, 145, 115, 10, 146, 116],
+      [19, 75, 47, 10, 76, 48],
+      [15, 54, 24, 25, 55, 25],
+      [23, 45, 15, 25, 46, 16],
+
+      // 31
+      [13, 145, 115, 3, 146, 116],
+      [2, 74, 46, 29, 75, 47],
+      [42, 54, 24, 1, 55, 25],
+      [23, 45, 15, 28, 46, 16],
+
+      // 32
+      [17, 145, 115],
+      [10, 74, 46, 23, 75, 47],
+      [10, 54, 24, 35, 55, 25],
+      [19, 45, 15, 35, 46, 16],
+
+      // 33
+      [17, 145, 115, 1, 146, 116],
+      [14, 74, 46, 21, 75, 47],
+      [29, 54, 24, 19, 55, 25],
+      [11, 45, 15, 46, 46, 16],
+
+      // 34
+      [13, 145, 115, 6, 146, 116],
+      [14, 74, 46, 23, 75, 47],
+      [44, 54, 24, 7, 55, 25],
+      [59, 46, 16, 1, 47, 17],
+
+      // 35
+      [12, 151, 121, 7, 152, 122],
+      [12, 75, 47, 26, 76, 48],
+      [39, 54, 24, 14, 55, 25],
+      [22, 45, 15, 41, 46, 16],
+
+      // 36
+      [6, 151, 121, 14, 152, 122],
+      [6, 75, 47, 34, 76, 48],
+      [46, 54, 24, 10, 55, 25],
+      [2, 45, 15, 64, 46, 16],
+
+      // 37
+      [17, 152, 122, 4, 153, 123],
+      [29, 74, 46, 14, 75, 47],
+      [49, 54, 24, 10, 55, 25],
+      [24, 45, 15, 46, 46, 16],
+
+      // 38
+      [4, 152, 122, 18, 153, 123],
+      [13, 74, 46, 32, 75, 47],
+      [48, 54, 24, 14, 55, 25],
+      [42, 45, 15, 32, 46, 16],
+
+      // 39
+      [20, 147, 117, 4, 148, 118],
+      [40, 75, 47, 7, 76, 48],
+      [43, 54, 24, 22, 55, 25],
+      [10, 45, 15, 67, 46, 16],
+
+      // 40
+      [19, 148, 118, 6, 149, 119],
+      [18, 75, 47, 31, 76, 48],
+      [34, 54, 24, 34, 55, 25],
+      [20, 45, 15, 61, 46, 16]
+    ];
+
+    var qrRSBlock = function(totalCount, dataCount) {
+      var _this = {};
+      _this.totalCount = totalCount;
+      _this.dataCount = dataCount;
+      return _this;
+    };
+
+    var _this = {};
+
+    var getRsBlockTable = function(typeNumber, errorCorrectionLevel) {
+
+      switch(errorCorrectionLevel) {
+      case QRErrorCorrectionLevel.L :
+        return RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 0];
+      case QRErrorCorrectionLevel.M :
+        return RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 1];
+      case QRErrorCorrectionLevel.Q :
+        return RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 2];
+      case QRErrorCorrectionLevel.H :
+        return RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 3];
+      default :
+        return undefined;
+      }
+    };
+
+    _this.getRSBlocks = function(typeNumber, errorCorrectionLevel) {
+
+      var rsBlock = getRsBlockTable(typeNumber, errorCorrectionLevel);
+
+      if (typeof rsBlock == 'undefined') {
+        throw 'bad rs block @ typeNumber:' + typeNumber +
+            '/errorCorrectionLevel:' + errorCorrectionLevel;
+      }
+
+      var length = rsBlock.length / 3;
+
+      var list = [];
+
+      for (var i = 0; i < length; i += 1) {
+
+        var count = rsBlock[i * 3 + 0];
+        var totalCount = rsBlock[i * 3 + 1];
+        var dataCount = rsBlock[i * 3 + 2];
+
+        for (var j = 0; j < count; j += 1) {
+          list.push(qrRSBlock(totalCount, dataCount) );
+        }
+      }
+
+      return list;
+    };
+
+    return _this;
+  }();
+
+  //---------------------------------------------------------------------
+  // qrBitBuffer
+  //---------------------------------------------------------------------
+
+  var qrBitBuffer = function() {
+
+    var _buffer = [];
+    var _length = 0;
+
+    var _this = {};
+
+    _this.getBuffer = function() {
+      return _buffer;
+    };
+
+    _this.getAt = function(index) {
+      var bufIndex = Math.floor(index / 8);
+      return ( (_buffer[bufIndex] >>> (7 - index % 8) ) & 1) == 1;
+    };
+
+    _this.put = function(num, length) {
+      for (var i = 0; i < length; i += 1) {
+        _this.putBit( ( (num >>> (length - i - 1) ) & 1) == 1);
+      }
+    };
+
+    _this.getLengthInBits = function() {
+      return _length;
+    };
+
+    _this.putBit = function(bit) {
+
+      var bufIndex = Math.floor(_length / 8);
+      if (_buffer.length <= bufIndex) {
+        _buffer.push(0);
+      }
+
+      if (bit) {
+        _buffer[bufIndex] |= (0x80 >>> (_length % 8) );
+      }
+
+      _length += 1;
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // qrNumber
+  //---------------------------------------------------------------------
+
+  var qrNumber = function(data) {
+
+    var _mode = QRMode.MODE_NUMBER;
+    var _data = data;
+
+    var _this = {};
+
+    _this.getMode = function() {
+      return _mode;
+    };
+
+    _this.getLength = function(buffer) {
+      return _data.length;
+    };
+
+    _this.write = function(buffer) {
+
+      var data = _data;
+
+      var i = 0;
+
+      while (i + 2 < data.length) {
+        buffer.put(strToNum(data.substring(i, i + 3) ), 10);
+        i += 3;
+      }
+
+      if (i < data.length) {
+        if (data.length - i == 1) {
+          buffer.put(strToNum(data.substring(i, i + 1) ), 4);
+        } else if (data.length - i == 2) {
+          buffer.put(strToNum(data.substring(i, i + 2) ), 7);
+        }
+      }
+    };
+
+    var strToNum = function(s) {
+      var num = 0;
+      for (var i = 0; i < s.length; i += 1) {
+        num = num * 10 + chatToNum(s.charAt(i) );
+      }
+      return num;
+    };
+
+    var chatToNum = function(c) {
+      if ('0' <= c && c <= '9') {
+        return c.charCodeAt(0) - '0'.charCodeAt(0);
+      }
+      throw 'illegal char :' + c;
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // qrAlphaNum
+  //---------------------------------------------------------------------
+
+  var qrAlphaNum = function(data) {
+
+    var _mode = QRMode.MODE_ALPHA_NUM;
+    var _data = data;
+
+    var _this = {};
+
+    _this.getMode = function() {
+      return _mode;
+    };
+
+    _this.getLength = function(buffer) {
+      return _data.length;
+    };
+
+    _this.write = function(buffer) {
+
+      var s = _data;
+
+      var i = 0;
+
+      while (i + 1 < s.length) {
+        buffer.put(
+          getCode(s.charAt(i) ) * 45 +
+          getCode(s.charAt(i + 1) ), 11);
+        i += 2;
+      }
+
+      if (i < s.length) {
+        buffer.put(getCode(s.charAt(i) ), 6);
+      }
+    };
+
+    var getCode = function(c) {
+
+      if ('0' <= c && c <= '9') {
+        return c.charCodeAt(0) - '0'.charCodeAt(0);
+      } else if ('A' <= c && c <= 'Z') {
+        return c.charCodeAt(0) - 'A'.charCodeAt(0) + 10;
+      } else {
+        switch (c) {
+        case ' ' : return 36;
+        case '$' : return 37;
+        case '%' : return 38;
+        case '*' : return 39;
+        case '+' : return 40;
+        case '-' : return 41;
+        case '.' : return 42;
+        case '/' : return 43;
+        case ':' : return 44;
+        default :
+          throw 'illegal char :' + c;
+        }
+      }
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // qr8BitByte
+  //---------------------------------------------------------------------
+
+  var qr8BitByte = function(data) {
+
+    var _mode = QRMode.MODE_8BIT_BYTE;
+    var _data = data;
+    var _bytes = qrcode.stringToBytes(data);
+
+    var _this = {};
+
+    _this.getMode = function() {
+      return _mode;
+    };
+
+    _this.getLength = function(buffer) {
+      return _bytes.length;
+    };
+
+    _this.write = function(buffer) {
+      for (var i = 0; i < _bytes.length; i += 1) {
+        buffer.put(_bytes[i], 8);
+      }
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // qrKanji
+  //---------------------------------------------------------------------
+
+  var qrKanji = function(data) {
+
+    var _mode = QRMode.MODE_KANJI;
+    var _data = data;
+
+    var stringToBytes = qrcode.stringToBytesFuncs['SJIS'];
+    if (!stringToBytes) {
+      throw 'sjis not supported.';
+    }
+    !function(c, code) {
+      // self test for sjis support.
+      var test = stringToBytes(c);
+      if (test.length != 2 || ( (test[0] << 8) | test[1]) != code) {
+        throw 'sjis not supported.';
+      }
+    }('\u53cb', 0x9746);
+
+    var _bytes = stringToBytes(data);
+
+    var _this = {};
+
+    _this.getMode = function() {
+      return _mode;
+    };
+
+    _this.getLength = function(buffer) {
+      return ~~(_bytes.length / 2);
+    };
+
+    _this.write = function(buffer) {
+
+      var data = _bytes;
+
+      var i = 0;
+
+      while (i + 1 < data.length) {
+
+        var c = ( (0xff & data[i]) << 8) | (0xff & data[i + 1]);
+
+        if (0x8140 <= c && c <= 0x9FFC) {
+          c -= 0x8140;
+        } else if (0xE040 <= c && c <= 0xEBBF) {
+          c -= 0xC140;
+        } else {
+          throw 'illegal char at ' + (i + 1) + '/' + c;
+        }
+
+        c = ( (c >>> 8) & 0xff) * 0xC0 + (c & 0xff);
+
+        buffer.put(c, 13);
+
+        i += 2;
+      }
+
+      if (i < data.length) {
+        throw 'illegal char at ' + (i + 1);
+      }
+    };
+
+    return _this;
+  };
+
+  //=====================================================================
+  // GIF Support etc.
+  //
+
+  //---------------------------------------------------------------------
+  // byteArrayOutputStream
+  //---------------------------------------------------------------------
+
+  var byteArrayOutputStream = function() {
+
+    var _bytes = [];
+
+    var _this = {};
+
+    _this.writeByte = function(b) {
+      _bytes.push(b & 0xff);
+    };
+
+    _this.writeShort = function(i) {
+      _this.writeByte(i);
+      _this.writeByte(i >>> 8);
+    };
+
+    _this.writeBytes = function(b, off, len) {
+      off = off || 0;
+      len = len || b.length;
+      for (var i = 0; i < len; i += 1) {
+        _this.writeByte(b[i + off]);
+      }
+    };
+
+    _this.writeString = function(s) {
+      for (var i = 0; i < s.length; i += 1) {
+        _this.writeByte(s.charCodeAt(i) );
+      }
+    };
+
+    _this.toByteArray = function() {
+      return _bytes;
+    };
+
+    _this.toString = function() {
+      var s = '';
+      s += '[';
+      for (var i = 0; i < _bytes.length; i += 1) {
+        if (i > 0) {
+          s += ',';
+        }
+        s += _bytes[i];
+      }
+      s += ']';
+      return s;
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // base64EncodeOutputStream
+  //---------------------------------------------------------------------
+
+  var base64EncodeOutputStream = function() {
+
+    var _buffer = 0;
+    var _buflen = 0;
+    var _length = 0;
+    var _base64 = '';
+
+    var _this = {};
+
+    var writeEncoded = function(b) {
+      _base64 += String.fromCharCode(encode(b & 0x3f) );
+    };
+
+    var encode = function(n) {
+      if (n < 0) {
+        // error.
+      } else if (n < 26) {
+        return 0x41 + n;
+      } else if (n < 52) {
+        return 0x61 + (n - 26);
+      } else if (n < 62) {
+        return 0x30 + (n - 52);
+      } else if (n == 62) {
+        return 0x2b;
+      } else if (n == 63) {
+        return 0x2f;
+      }
+      throw 'n:' + n;
+    };
+
+    _this.writeByte = function(n) {
+
+      _buffer = (_buffer << 8) | (n & 0xff);
+      _buflen += 8;
+      _length += 1;
+
+      while (_buflen >= 6) {
+        writeEncoded(_buffer >>> (_buflen - 6) );
+        _buflen -= 6;
+      }
+    };
+
+    _this.flush = function() {
+
+      if (_buflen > 0) {
+        writeEncoded(_buffer << (6 - _buflen) );
+        _buffer = 0;
+        _buflen = 0;
+      }
+
+      if (_length % 3 != 0) {
+        // padding
+        var padlen = 3 - _length % 3;
+        for (var i = 0; i < padlen; i += 1) {
+          _base64 += '=';
+        }
+      }
+    };
+
+    _this.toString = function() {
+      return _base64;
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // base64DecodeInputStream
+  //---------------------------------------------------------------------
+
+  var base64DecodeInputStream = function(str) {
+
+    var _str = str;
+    var _pos = 0;
+    var _buffer = 0;
+    var _buflen = 0;
+
+    var _this = {};
+
+    _this.read = function() {
+
+      while (_buflen < 8) {
+
+        if (_pos >= _str.length) {
+          if (_buflen == 0) {
+            return -1;
+          }
+          throw 'unexpected end of file./' + _buflen;
+        }
+
+        var c = _str.charAt(_pos);
+        _pos += 1;
+
+        if (c == '=') {
+          _buflen = 0;
+          return -1;
+        } else if (c.match(/^\s$/) ) {
+          // ignore if whitespace.
+          continue;
+        }
+
+        _buffer = (_buffer << 6) | decode(c.charCodeAt(0) );
+        _buflen += 6;
+      }
+
+      var n = (_buffer >>> (_buflen - 8) ) & 0xff;
+      _buflen -= 8;
+      return n;
+    };
+
+    var decode = function(c) {
+      if (0x41 <= c && c <= 0x5a) {
+        return c - 0x41;
+      } else if (0x61 <= c && c <= 0x7a) {
+        return c - 0x61 + 26;
+      } else if (0x30 <= c && c <= 0x39) {
+        return c - 0x30 + 52;
+      } else if (c == 0x2b) {
+        return 62;
+      } else if (c == 0x2f) {
+        return 63;
+      } else {
+        throw 'c:' + c;
+      }
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // gifImage (B/W)
+  //---------------------------------------------------------------------
+
+  var gifImage = function(width, height) {
+
+    var _width = width;
+    var _height = height;
+    var _data = new Array(width * height);
+
+    var _this = {};
+
+    _this.setPixel = function(x, y, pixel) {
+      _data[y * _width + x] = pixel;
+    };
+
+    _this.write = function(out) {
+
+      //---------------------------------
+      // GIF Signature
+
+      out.writeString('GIF87a');
+
+      //---------------------------------
+      // Screen Descriptor
+
+      out.writeShort(_width);
+      out.writeShort(_height);
+
+      out.writeByte(0x80); // 2bit
+      out.writeByte(0);
+      out.writeByte(0);
+
+      //---------------------------------
+      // Global Color Map
+
+      // black
+      out.writeByte(0x00);
+      out.writeByte(0x00);
+      out.writeByte(0x00);
+
+      // white
+      out.writeByte(0xff);
+      out.writeByte(0xff);
+      out.writeByte(0xff);
+
+      //---------------------------------
+      // Image Descriptor
+
+      out.writeString(',');
+      out.writeShort(0);
+      out.writeShort(0);
+      out.writeShort(_width);
+      out.writeShort(_height);
+      out.writeByte(0);
+
+      //---------------------------------
+      // Local Color Map
+
+      //---------------------------------
+      // Raster Data
+
+      var lzwMinCodeSize = 2;
+      var raster = getLZWRaster(lzwMinCodeSize);
+
+      out.writeByte(lzwMinCodeSize);
+
+      var offset = 0;
+
+      while (raster.length - offset > 255) {
+        out.writeByte(255);
+        out.writeBytes(raster, offset, 255);
+        offset += 255;
+      }
+
+      out.writeByte(raster.length - offset);
+      out.writeBytes(raster, offset, raster.length - offset);
+      out.writeByte(0x00);
+
+      //---------------------------------
+      // GIF Terminator
+      out.writeString(';');
+    };
+
+    var bitOutputStream = function(out) {
+
+      var _out = out;
+      var _bitLength = 0;
+      var _bitBuffer = 0;
+
+      var _this = {};
+
+      _this.write = function(data, length) {
+
+        if ( (data >>> length) != 0) {
+          throw 'length over';
+        }
+
+        while (_bitLength + length >= 8) {
+          _out.writeByte(0xff & ( (data << _bitLength) | _bitBuffer) );
+          length -= (8 - _bitLength);
+          data >>>= (8 - _bitLength);
+          _bitBuffer = 0;
+          _bitLength = 0;
+        }
+
+        _bitBuffer = (data << _bitLength) | _bitBuffer;
+        _bitLength = _bitLength + length;
+      };
+
+      _this.flush = function() {
+        if (_bitLength > 0) {
+          _out.writeByte(_bitBuffer);
+        }
+      };
+
+      return _this;
+    };
+
+    var getLZWRaster = function(lzwMinCodeSize) {
+
+      var clearCode = 1 << lzwMinCodeSize;
+      var endCode = (1 << lzwMinCodeSize) + 1;
+      var bitLength = lzwMinCodeSize + 1;
+
+      // Setup LZWTable
+      var table = lzwTable();
+
+      for (var i = 0; i < clearCode; i += 1) {
+        table.add(String.fromCharCode(i) );
+      }
+      table.add(String.fromCharCode(clearCode) );
+      table.add(String.fromCharCode(endCode) );
+
+      var byteOut = byteArrayOutputStream();
+      var bitOut = bitOutputStream(byteOut);
+
+      // clear code
+      bitOut.write(clearCode, bitLength);
+
+      var dataIndex = 0;
+
+      var s = String.fromCharCode(_data[dataIndex]);
+      dataIndex += 1;
+
+      while (dataIndex < _data.length) {
+
+        var c = String.fromCharCode(_data[dataIndex]);
+        dataIndex += 1;
+
+        if (table.contains(s + c) ) {
+
+          s = s + c;
+
+        } else {
+
+          bitOut.write(table.indexOf(s), bitLength);
+
+          if (table.size() < 0xfff) {
+
+            if (table.size() == (1 << bitLength) ) {
+              bitLength += 1;
+            }
+
+            table.add(s + c);
+          }
+
+          s = c;
+        }
+      }
+
+      bitOut.write(table.indexOf(s), bitLength);
+
+      // end code
+      bitOut.write(endCode, bitLength);
+
+      bitOut.flush();
+
+      return byteOut.toByteArray();
+    };
+
+    var lzwTable = function() {
+
+      var _map = {};
+      var _size = 0;
+
+      var _this = {};
+
+      _this.add = function(key) {
+        if (_this.contains(key) ) {
+          throw 'dup key:' + key;
+        }
+        _map[key] = _size;
+        _size += 1;
+      };
+
+      _this.size = function() {
+        return _size;
+      };
+
+      _this.indexOf = function(key) {
+        return _map[key];
+      };
+
+      _this.contains = function(key) {
+        return typeof _map[key] != 'undefined';
+      };
+
+      return _this;
+    };
+
+    return _this;
+  };
+
+  var createDataURL = function(width, height, getPixel) {
+    var gif = gifImage(width, height);
+    for (var y = 0; y < height; y += 1) {
+      for (var x = 0; x < width; x += 1) {
+        gif.setPixel(x, y, getPixel(x, y) );
+      }
+    }
+
+    var b = byteArrayOutputStream();
+    gif.write(b);
+
+    var base64 = base64EncodeOutputStream();
+    var bytes = b.toByteArray();
+    for (var i = 0; i < bytes.length; i += 1) {
+      base64.writeByte(bytes[i]);
+    }
+    base64.flush();
+
+    return 'data:image/gif;base64,' + base64;
+  };
+
+  //---------------------------------------------------------------------
+  // returns qrcode function.
+
+  return qrcode;
+}();
+
+// multibyte support
+!function() {
+
+  qrcode.stringToBytesFuncs['UTF-8'] = function(s) {
+    // http://stackoverflow.com/questions/18729405/how-to-convert-utf8-string-to-byte-array
+    function toUTF8Array(str) {
+      var utf8 = [];
+      for (var i=0; i < str.length; i++) {
+        var charcode = str.charCodeAt(i);
+        if (charcode < 0x80) utf8.push(charcode);
+        else if (charcode < 0x800) {
+          utf8.push(0xc0 | (charcode >> 6),
+              0x80 | (charcode & 0x3f));
+        }
+        else if (charcode < 0xd800 || charcode >= 0xe000) {
+          utf8.push(0xe0 | (charcode >> 12),
+              0x80 | ((charcode>>6) & 0x3f),
+              0x80 | (charcode & 0x3f));
+        }
+        // surrogate pair
+        else {
+          i++;
+          // UTF-16 encodes 0x10000-0x10FFFF by
+          // subtracting 0x10000 and splitting the
+          // 20 bits of 0x0-0xFFFFF into two halves
+          charcode = 0x10000 + (((charcode & 0x3ff)<<10)
+            | (str.charCodeAt(i) & 0x3ff));
+          utf8.push(0xf0 | (charcode >>18),
+              0x80 | ((charcode>>12) & 0x3f),
+              0x80 | ((charcode>>6) & 0x3f),
+              0x80 | (charcode & 0x3f));
+        }
+      }
+      return utf8;
+    }
+    return toUTF8Array(s);
+  };
+
+}();
+
+(function (factory) {
+  if (typeof define === 'function' && define.amd) {
+      define([], factory);
+  } else if (typeof exports === 'object') {
+      module.exports = factory();
+  }
+}(function () {
+    return qrcode;
+}));
+
+</script>
+<script>
+/* Mobile Concierge Registration — sales & marketing led iPad app. Local only. */
+const SYNC_ENDPOINT = ''; // Power Automate / Microsoft 365 webhook. Leave '' until go-live.
+const HELP_DESK_WHATSAPP = '[help desk WhatsApp number]';
+const HELP_DESK_EMAIL = '[help desk email]';
+const CONCIERGE_CHAT_URL = '';
+
+const STORE_KEY = 'divi-mc-ipad-v2';
+const INTERESTS = [
+  ['snorkel', 'Snorkel & dive'],
+  ['boat', 'Boat & catamaran'],
+  ['tours', 'Island tours'],
+  ['beach', 'Beach & spa'],
+  ['dining', 'Dining experiences'],
+  ['nightlife', 'Nightlife'],
+  ['kids', 'Kids & family'],
+  ['golf', 'Golf'],
+  ['shopping', 'Shopping / Philipsburg']
+];
+const OCCASIONS = ['Anniversary', 'Birthday', 'Honeymoon', 'Family reunion', 'None'];
+const TIMES = ['Morning', 'Afternoon', 'Evening', 'Anytime'];
+const EXP = [
+  { code: 'ACT', name: 'Activities & excursions', picks: ['Snorkel & dive', 'Boat or catamaran', 'Island tour', 'Beach & spa'] },
+  { code: 'EVT', name: 'Special events & invites', picks: ['Owner Soirée RSVP', 'Invite to an event', 'Event question'] },
+  { code: 'CEL', name: 'Dining & celebrations', picks: ['Celebration setup', 'Dinner reservation', 'Cake or surprise'] },
+  { code: 'REQ', name: 'Special requests', picks: ['Special request', 'In-room celebration', 'Surprise timing'] },
+  { code: 'S&M', name: 'Owner & vacation ownership', picks: ['Owner event info', 'Vacation ownership', 'Owner referral'] },
+  { code: 'RIDE', name: 'Transportation to experiences', picks: ['Ride to an excursion', 'Taxi to Philipsburg', 'Airport for a tour'] }
+];
+const OPS = [
+  { code: 'HK', name: 'Housekeeping', picks: ['Extra towels', 'Room cleaning', 'Amenities'] },
+  { code: 'RM', name: 'Room & maintenance', picks: ['Air conditioning', 'Plumbing', 'Wi-Fi'] },
+  { code: 'FD', name: 'Front desk', picks: ['Billing question', 'Late checkout'] },
+  { code: 'URG', name: 'Urgent / safety', picks: ['Safety concern', 'Locked out'] },
+  { code: 'SHT', name: 'Shuttle', picks: ['Shuttle schedule', 'Missed shuttle'] }
+];
+const SOIREE = 'Owner Soirée · Sun Oct 25 · 5–7 PM · VIP · win prizes';
+
+const state = {
+  view: 'board',
+  guestId: null,
+  folder: 'ACT',
+  lane: 'experience',
+  query: '',
+  filters: { celebrating: false, owners: false, excursions: false, hot: false, departing: false },
+  sheet: false,
+  sheetCat: 'ACT',
+  sheetLane: 'experience',
+  successId: null
+};
+
+function esc(s) {
+  return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+function todayISO() {
+  const d = new Date();
+  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+function addDays(iso, n) {
+  const [y, m, d] = iso.split('-').map(Number);
+  const dt = new Date(y, m - 1, d);
+  dt.setDate(dt.getDate() + n);
+  return dt.getFullYear() + '-' + String(dt.getMonth() + 1).padStart(2, '0') + '-' + String(dt.getDate()).padStart(2, '0');
+}
+function prettyDate(iso) {
+  if (!iso) return '';
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const [y, m, d] = iso.split('-').map(Number);
+  return months[m - 1] + ' ' + d + ', ' + y;
+}
+function whenLabel(iso) {
+  try {
+    return new Date(iso).toLocaleString('en-US', {
+      timeZone: 'America/Lower_Princes', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit'
+    });
+  } catch (e) {
+    return new Date(iso).toLocaleString();
+  }
+}
+function catBy(code) {
+  return EXP.concat(OPS).find(c => c.code === code) || { code, name: code };
+}
+function subjectOf(g, t) {
+  return '[' + t.category + '][' + t.priority + '] ' + g.guestId + '-' + t.id + ' · ' + t.summary;
+}
+function interestLabel(id) {
+  const row = INTERESTS.find(x => x[0] === id);
+  return row ? row[1] : id;
+}
+function celebrating(g) { return g.occasion && g.occasion !== 'None'; }
+function excursionInterest(g) {
+  return (g.interests || []).some(i => ['snorkel', 'boat', 'tours', 'golf'].includes(i));
+}
+function openOf(list) { return (list || []).filter(t => t.status !== 'Resolved'); }
+function inHouse(g, today) { return g.arrival <= today && g.departure >= today; }
+function departingSoon(g, today) { return g.departure >= today && g.departure <= addDays(today, 2); }
+function lastTouch(g) {
+  const times = (g.messages || []).map(m => m.at).sort();
+  return times.length ? times[times.length - 1] : g.createdAt;
+}
+function channelLabel(ch) {
+  return { text: 'Text / iMessage', whatsapp: 'WhatsApp', email: 'Email', in_person: 'In person' }[ch] || ch;
+}
+function upcoming(g) {
+  const list = g.experiences || [];
+  return list.find(e => e.status !== 'Suggested') || list[0] || null;
+}
+
+function seed() {
+  const guests = [
+    {
+      guestId: 'DLB-261006-0412-01', name: 'Jordan Sample', room: '0412', roomNumber: 412,
+      arrival: '2026-10-06', departure: '2026-10-11', partySize: 2, ownerStatus: 'Owner',
+      occasion: 'Anniversary', interests: ['snorkel', 'boat', 'dining'], bestTime: 'Evening',
+      hotLead: true, methods: ['whatsapp', 'email'],
+      mobile: { cc: '+1', national: '7215550101', display: '+1 721 555 0101' },
+      whatsappSame: true, whatsapp: null, email: 'jordan.sample@example.com', consent: true,
+      staff: 'JM', notes: 'Anniversary week. Wants a boat day if the snorkel morning is full.',
+      createdAt: '2026-10-06T15:10:00-04:00',
+      messages: [
+        { channel: 'in_person', staff: 'JM', body: 'Registered after check-in. Anniversary, snorkel and a catamaran if we can.', at: '2026-10-06T15:10:00-04:00' },
+        { channel: 'whatsapp', staff: 'JM', body: 'Welcome to Divi Little Bay. We saved evening as the best time to reach you.', at: '2026-10-06T15:28:00-04:00' },
+        { channel: 'whatsapp', staff: 'AL', body: 'Owner Soirée is Sunday Oct 25, 5–7 PM. VIP, win prizes. You are marked yes.', at: '2026-10-07T11:05:00-04:00' }
+      ],
+      experiences: [
+        { title: 'Owner Soirée', detail: SOIREE, status: 'RSVP yes' },
+        { title: 'Snorkel outing', detail: 'Thursday morning · couple', status: 'Booked' },
+        { title: 'Catamaran sail', detail: 'Suggested upsell for the anniversary', status: 'Suggested' }
+      ],
+      tickets: [
+        { id: 'T01', lane: 'experience', category: 'ACT', priority: 'P3', summary: 'Snorkel outing', notes: 'Couple, Thursday morning.', status: 'In progress', smFlag: true, at: '2026-10-07T11:06:00-04:00' },
+        { id: 'T02', lane: 'experience', category: 'EVT', priority: 'P3', summary: 'Owner Soirée RSVP', notes: 'Yes. VIP owner event.', status: 'Open', smFlag: true, at: '2026-10-07T11:08:00-04:00' }
+      ]
+    },
+    {
+      guestId: 'DLB-261007-0218-01', name: 'Maya Example', room: '0218', roomNumber: 218,
+      arrival: '2026-10-07', departure: '2026-10-10', partySize: 4, ownerStatus: 'Non-owner',
+      occasion: 'Family reunion', interests: ['kids', 'dining', 'beach'], bestTime: 'Morning',
+      hotLead: false, methods: ['text', 'email'],
+      mobile: { cc: '+1', national: '7215550142', display: '+1 721 555 0142' },
+      whatsappSame: true, whatsapp: null, email: 'maya.example@example.com', consent: true,
+      staff: 'AL', notes: 'Two children. Asked about a beach picnic for the reunion.',
+      createdAt: '2026-10-07T16:40:00-04:00',
+      messages: [
+        { channel: 'in_person', staff: 'AL', body: 'Family of four. Reunion. Text is fine in the morning.', at: '2026-10-07T16:40:00-04:00' },
+        { channel: 'text', staff: 'AL', body: 'Kids club can take the children Thursday. I held a note for a beach picnic.', at: '2026-10-08T09:15:00-04:00' }
+      ],
+      experiences: [
+        { title: 'Kids club morning', detail: 'Thursday · suggested', status: 'Suggested' },
+        { title: 'Beach picnic', detail: 'Reunion lunch on the sand', status: 'Suggested' }
+      ],
+      tickets: [
+        { id: 'T01', lane: 'experience', category: 'CEL', priority: 'P2', summary: 'Reunion beach picnic', notes: 'Four people, simple setup.', status: 'Open', smFlag: true, at: '2026-10-08T09:16:00-04:00' },
+        { id: 'T02', lane: 'ops', category: 'HK', priority: 'P3', summary: 'Extra towels', notes: 'Pool day.', status: 'Open', smFlag: false, at: '2026-10-08T09:20:00-04:00' }
+      ]
+    },
+    {
+      guestId: 'DLB-261005-0105-01', name: 'Chris Placeholder', room: '0105', roomNumber: 105,
+      arrival: '2026-10-05', departure: '2026-10-09', partySize: 1, ownerStatus: 'Unknown',
+      occasion: 'None', interests: ['golf', 'shopping'], bestTime: 'Afternoon',
+      hotLead: false, methods: ['email'],
+      mobile: null, whatsappSame: true, whatsapp: null, email: 'chris.placeholder@example.com', consent: true,
+      staff: 'JM', notes: 'Quiet stay. Mentioned Mullet Bay golf if a tee time opens.',
+      createdAt: '2026-10-05T18:05:00-04:00',
+      messages: [
+        { channel: 'email', staff: 'JM', body: 'Noted golf interest. No celebration on this stay.', at: '2026-10-08T08:40:00-04:00' }
+      ],
+      experiences: [
+        { title: 'Golf tee time', detail: 'Suggested · not booked', status: 'Suggested' }
+      ],
+      tickets: [
+        { id: 'T01', lane: 'ops', category: 'RM', priority: 'P1', summary: 'AC not cooling', notes: 'Routed to resort ops.', status: 'Open', smFlag: false, at: '2026-10-08T08:18:00-04:00' }
+      ]
+    },
+    {
+      guestId: 'DLB-261008-0330-01', name: 'Riley Demo', room: '0330', roomNumber: 330,
+      arrival: '2026-10-08', departure: '2026-10-15', partySize: 2, ownerStatus: 'Owner',
+      occasion: 'Honeymoon', interests: ['boat', 'beach', 'nightlife'], bestTime: 'Evening',
+      hotLead: true, methods: ['whatsapp'],
+      mobile: { cc: '+1', national: '7215550177', display: '+1 721 555 0177' },
+      whatsappSame: true, whatsapp: null, email: '', consent: true,
+      staff: 'KP', notes: 'Honeymoon owners. Invite to the Soirée is still open.',
+      createdAt: '2026-10-08T13:05:00-04:00',
+      messages: [
+        { channel: 'in_person', staff: 'KP', body: 'Met at the desk. Honeymoon, boat and spa. WhatsApp only.', at: '2026-10-08T13:05:00-04:00' },
+        { channel: 'whatsapp', staff: 'KP', body: 'Owner Soirée Sunday Oct 25, 5–7 PM, VIP, win prizes. Want me to RSVP you?', at: '2026-10-08T13:20:00-04:00' }
+      ],
+      experiences: [
+        { title: 'Owner Soirée', detail: SOIREE, status: 'Invited' },
+        { title: 'Sunset catamaran', detail: 'Honeymoon upsell · not booked', status: 'Suggested' },
+        { title: 'Couples spa', detail: 'Beach & spa · suggested', status: 'Suggested' }
+      ],
+      tickets: [
+        { id: 'T01', lane: 'experience', category: 'EVT', priority: 'P2', summary: 'Owner Soirée invite', notes: 'Waiting on RSVP.', status: 'Open', smFlag: true, at: '2026-10-08T13:21:00-04:00' },
+        { id: 'T02', lane: 'experience', category: 'RIDE', priority: 'P3', summary: 'Ride to an excursion', notes: 'Airport transfer already done. This is for a future sail.', status: 'Open', smFlag: false, at: '2026-10-08T13:30:00-04:00' }
+      ]
+    },
+    {
+      guestId: 'DLB-261004-0507-01', name: 'Sam Fictional', room: '0507', roomNumber: 507,
+      arrival: '2026-10-04', departure: '2026-10-09', partySize: 2, ownerStatus: 'Non-owner',
+      occasion: 'Birthday', interests: ['tours', 'dining', 'shopping'], bestTime: 'Afternoon',
+      hotLead: true, methods: ['text', 'whatsapp'],
+      mobile: { cc: '+1', national: '7215550199', display: '+1 721 555 0199' },
+      whatsappSame: false, whatsapp: { cc: '+1', national: '7215550188', display: '+1 721 555 0188' },
+      email: '', consent: true,
+      staff: 'AL', notes: 'Birthday dinner. Island tour upsell before they leave tomorrow.',
+      createdAt: '2026-10-04T17:30:00-04:00',
+      messages: [
+        { channel: 'whatsapp', staff: 'AL', body: 'Happy almost-birthday. I can hold a Philipsburg dinner and an island tour for tomorrow.', at: '2026-10-08T14:40:00-04:00' }
+      ],
+      experiences: [
+        { title: 'Birthday dinner', detail: 'Philipsburg · tomorrow evening', status: 'Booked' },
+        { title: 'Island tour', detail: 'Suggested before departure', status: 'Suggested' }
+      ],
+      tickets: [
+        { id: 'T01', lane: 'experience', category: 'CEL', priority: 'P2', summary: 'Birthday dinner', notes: 'Two guests. Philipsburg.', status: 'In progress', smFlag: true, at: '2026-10-08T14:42:00-04:00' },
+        { id: 'T02', lane: 'ops', category: 'SHT', priority: 'P3', summary: 'Missed shuttle', notes: 'Quiet ops note. Guest is back.', status: 'Resolved', smFlag: false, at: '2026-10-07T16:00:00-04:00' }
+      ]
+    }
+  ];
+  guests.forEach(g => g.tickets.forEach(t => { t.subject = subjectOf(g, t); }));
+  return { guests };
+}
+
+function loadDB() {
+  try {
+    const raw = localStorage.getItem(STORE_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch (e) { /* reseed */ }
+  const db = seed();
+  localStorage.setItem(STORE_KEY, JSON.stringify(db));
+  return db;
+}
+let db = loadDB();
+function persist() { localStorage.setItem(STORE_KEY, JSON.stringify(db)); }
+function guestById(id) { return db.guests.find(g => g.guestId === id) || null; }
+async function maybeSync(payload) {
+  if (!SYNC_ENDPOINT) return;
+  try {
+    await fetch(SYNC_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+  } catch (e) { /* local copy remains */ }
+}
+function qrPayload(g) {
+  if (CONCIERGE_CHAT_URL) {
+    const join = CONCIERGE_CHAT_URL.indexOf('?') >= 0 ? '&' : '?';
+    return CONCIERGE_CHAT_URL + join + 'id=' + encodeURIComponent(g.guestId);
+  }
+  return ['Divi Little Bay Concierge', 'Guest ' + g.guestId, 'Room ' + g.roomNumber, 'WhatsApp: ' + HELP_DESK_WHATSAPP, 'Email: ' + HELP_DESK_EMAIL].join('\n');
+}
+function drawQR(g) {
+  const el = document.getElementById('qr');
+  if (!el) return;
+  const qr = qrcode(0, 'M');
+  qr.addData(qrPayload(g));
+  qr.make();
+  el.innerHTML = qr.createSvgTag({ cellSize: 4, margin: 2 });
+}
+function contactLine(g) {
+  const bits = [];
+  if ((g.methods || []).includes('text') && g.mobile) bits.push('Text ' + g.mobile.display);
+  if ((g.methods || []).includes('whatsapp')) {
+    const w = g.whatsappSame || !g.whatsapp ? g.mobile : g.whatsapp;
+    if (w) bits.push('WhatsApp ' + w.display);
+  }
+  if ((g.methods || []).includes('email') && g.email) bits.push(g.email);
+  return bits.join(' · ');
+}
+function expTickets(g) { return (g.tickets || []).filter(t => t.lane !== 'ops'); }
+function opsTickets(g) { return (g.tickets || []).filter(t => t.lane === 'ops'); }
+
+function setView(view) {
+  state.view = view;
+  state.sheet = false;
+  if (view !== 'register') state.successId = null;
+  render();
+}
+function openGuest(id) {
+  state.guestId = id;
+  state.view = 'profile';
+  state.sheet = false;
+  render();
+}
+
+function navHTML() {
+  const items = [['board', 'Guests'], ['register', 'Register'], ['desk', 'Concierge Desk'], ['sales', 'Sales Opportunities']];
+  const current = state.view === 'profile' ? 'board' : state.view;
+  return items.map(([id, label]) =>
+    '<button type="button" class="navbtn' + (current === id ? ' active' : '') + '" data-nav="' + id + '" id="nav-' + id + '">' + label + '</button>'
+  ).join('');
+}
+
+function renderBoard() {
+  const today = todayISO();
+  let list = db.guests.filter(g => inHouse(g, today));
+  const q = state.query.trim().toLowerCase();
+  if (q) list = list.filter(g => g.name.toLowerCase().includes(q) || String(g.roomNumber).includes(q) || g.guestId.toLowerCase().includes(q));
+  const f = state.filters;
+  if (f.celebrating) list = list.filter(celebrating);
+  if (f.owners) list = list.filter(g => g.ownerStatus === 'Owner');
+  if (f.excursions) list = list.filter(excursionInterest);
+  if (f.hot) list = list.filter(g => g.hotLead);
+  if (f.departing) list = list.filter(g => departingSoon(g, today));
+  const all = db.guests.filter(g => inHouse(g, today));
+  const stats = [
+    ['all', all.length, 'In house', false],
+    ['celebrating', all.filter(celebrating).length, 'Celebrating', f.celebrating],
+    ['owners', all.filter(g => g.ownerStatus === 'Owner').length, 'Owners', f.owners],
+    ['excursions', all.filter(excursionInterest).length, 'Excursions', f.excursions],
+    ['hot', all.filter(g => g.hotLead).length, 'Hot leads', f.hot],
+    ['departing', all.filter(g => departingSoon(g, today)).length, 'Departing soon', f.departing]
+  ];
+  const cards = list.map(g => {
+    const next = upcoming(g);
+    const opsN = openOf(opsTickets(g)).length;
+    const pills = (g.interests || []).slice(0, 3).map(i => '<span class="pill aqua">' + esc(interestLabel(i)) + '</span>').join('');
+    const flags = [];
+    if (celebrating(g)) flags.push('<span class="pill pink">' + esc(g.occasion) + '</span>');
+    if (g.ownerStatus === 'Owner') flags.push('<span class="pill">Owner</span>');
+    if (g.hotLead) flags.push('<span class="pill hot">Hot lead</span>');
+    if (departingSoon(g, today)) flags.push('<span class="pill">Departs ' + esc(prettyDate(g.departure)) + '</span>');
+    return '<button type="button" class="gcard" data-open="' + esc(g.guestId) + '">' +
+      '<div class="grow"><strong>' + esc(g.name) + '</strong><span class="room">Room ' + g.roomNumber + '</span></div>' +
+      '<div class="gid">' + esc(g.guestId) + '</div>' +
+      '<div class="meta">' + esc(prettyDate(g.arrival)) + ' – ' + esc(prettyDate(g.departure)) + ' · reach ' + esc(g.bestTime || 'Anytime') + '</div>' +
+      '<div class="prow">' + flags.join('') + pills + '</div>' +
+      (next ? '<div class="next"><b>' + esc(next.status) + '</b> ' + esc(next.title) + '</div>' : '') +
+      '<div class="footrow"><span>Last contact ' + esc(whenLabel(lastTouch(g))) + '</span>' +
+      (opsN ? '<span class="tiny">Room notes ' + opsN + '</span>' : '<span class="tiny">No room notes</span>') + '</div></button>';
+  }).join('') || '<p class="empty">No guests match.</p>';
+  return '<section class="page"><div class="hero"><img src="../../dv-photos/pools-1.jpg" alt="Divi Little Bay pool and palms">' +
+    '<div class="copy"><p class="kicker">Mobile Concierge Registration</p><h1>Plan your perfect stay</h1>' +
+    '<p>A guest service of Divi Little Bay Beach Resort. Interests, occasions, and the experiences still open.</p></div></div>' +
+    '<div class="hrow"><p class="sub">In-house guests. Tap a card for the dialogue.</p>' +
+    '<input id="q" class="search" placeholder="Search name, room, or Guest ID" value="' + esc(state.query) + '"></div>' +
+    '<div class="stats">' + stats.map(([key, n, label, on]) =>
+      '<button type="button" class="stat' + (on ? ' on' : '') + '" data-filter="' + key + '"><b>' + n + '</b>' + esc(label) + '</button>'
+    ).join('') + '</div><div class="cards">' + cards + '</div></section>';
+}
+
+function renderProfile() {
+  const g = guestById(state.guestId);
+  if (!g) return '<section class="page"><p>Guest not found.</p></section>';
+  if (state.sheet) return renderSheet(g);
+  const tags = (g.interests || []).map(i => '<span class="pill aqua">' + esc(interestLabel(i)) + '</span>').join('') || '<span class="meta">No interests yet</span>';
+  const msgs = (g.messages || []).slice().sort((a, b) => a.at < b.at ? -1 : 1).map(m =>
+    '<article class="msg"><div class="meta"><span class="ch">' + esc(channelLabel(m.channel)) + '</span><span>' + esc(m.staff) + '</span><span>' + esc(whenLabel(m.at)) + '</span><span class="logged">Logged</span></div><p>' + esc(m.body) + '</p></article>'
+  ).join('');
+  const exps = (g.experiences || []).map(e =>
+    '<article class="tix"><div class="prow"><span class="pill ' + (e.status === 'RSVP yes' || e.status === 'Booked' ? 'pink' : 'aqua') + '">' + esc(e.status) + '</span></div>' +
+    '<p class="subj">' + esc(e.title) + '</p><p class="meta">' + esc(e.detail) + '</p></article>'
+  ).join('') || '<p class="meta">Nothing booked yet.</p>';
+  const reqs = expTickets(g).map(t =>
+    '<article class="tix"><div class="prow"><span class="pill">' + esc(t.priority) + '</span><span class="pill">' + esc(t.status) + '</span>' +
+    (t.smFlag ? '<span class="pill pink">Sales</span>' : '') + '</div><p class="subj">' + esc(t.subject) + '</p><p class="meta">' + esc(catBy(t.category).name) + '</p></article>'
+  ).join('') || '<p class="meta">No experience requests yet.</p>';
+  const ops = opsTickets(g);
+  const opsBody = ops.map(t => '<p class="meta">' + esc(t.subject) + ' · ' + esc(t.status) + '</p>').join('') || '<p class="meta">None.</p>';
+  return '<section class="page"><button type="button" class="back" id="back-board">← Guest board</button><div class="cols">' +
+    '<aside class="panel"><p class="kicker">' + esc(g.ownerStatus) + (celebrating(g) ? ' · ' + esc(g.occasion) : '') + '</p>' +
+    '<h1>' + esc(g.name) + '</h1><p class="bignum">Room ' + g.roomNumber + '</p><p class="gid">' + esc(g.guestId) + '</p>' +
+    '<p class="meta">' + esc(prettyDate(g.arrival)) + ' – ' + esc(prettyDate(g.departure)) + '</p>' +
+    '<p class="meta">Best time ' + esc(g.bestTime) + ' · party of ' + g.partySize + ' · ' + esc(g.staff) + '</p>' +
+    (g.hotLead ? '<p><span class="pill hot">Hot lead</span></p>' : '') +
+    '<h2>How we reach them</h2><p>' + esc(contactLine(g) || 'None saved') + '</p>' +
+    '<p class="meta">' + (g.consent ? 'Consent on file for this stay.' : 'No consent on file.') + '</p>' +
+    '<h2>Interests</h2><div class="prow">' + tags + '</div>' +
+    (g.notes ? '<h2>Notes</h2><p>' + esc(g.notes) + '</p>' : '') +
+    '</aside><div class="panel thread"><div class="hrow"><h2>Dialogue</h2><span class="meta">Not sent — logged on this iPad</span></div>' +
+    '<div class="timeline">' + msgs + '</div><form id="composer" class="composer"><div class="seg">' +
+    ['whatsapp', 'text', 'email', 'in_person'].map((ch, i) =>
+      '<label><input type="radio" name="channel" value="' + ch + '"' + (i === 0 ? ' checked' : '') + '> ' + esc(channelLabel(ch)) + '</label>'
+    ).join('') + '</div><label class="f">Staff initials<input id="log-staff" maxlength="4" value="' + esc(g.staff) + '"></label>' +
+    '<textarea id="log-body" placeholder="What was said about their stay"></textarea>' +
+    '<button class="primary" type="submit">Log message</button></form></div>' +
+    '<aside class="panel"><h2>Experiences & bookings</h2>' + exps +
+    '<div class="hrow"><h2>Requests</h2><button class="primary" type="button" id="new-request">New request</button></div>' + reqs +
+    '<details class="ops"><summary>Room & resort needs' + (openOf(ops).length ? ' · ' + openOf(ops).length + ' open' : '') + '</summary>' + opsBody + '</details>' +
+    '</aside></div></section>';
+}
+
+function renderSheet(g) {
+  const pool = state.sheetLane === 'ops' ? OPS : EXP;
+  const cat = pool.find(c => c.code === state.sheetCat) || pool[0];
+  const tiles = EXP.map(c =>
+    '<button type="button" class="cattile' + (state.sheetLane === 'experience' && c.code === cat.code ? ' on' : '') + '" data-cat="' + c.code + '" data-lane="experience"><b>' + esc(c.code) + '</b><span>' + esc(c.name) + '</span></button>'
+  ).join('');
+  const ops = OPS.map(c =>
+    '<button type="button" class="cattile tiny' + (state.sheetLane === 'ops' && c.code === cat.code ? ' on' : '') + '" data-cat="' + c.code + '" data-lane="ops"><b>' + esc(c.code) + '</b> ' + esc(c.name) + '</button>'
+  ).join('');
+  const picks = cat.picks.map(p =>
+    '<label class="pick"><input type="radio" name="pick" data-pick="' + esc(p) + '" value="' + esc(p) + '"> ' + esc(p) + '</label>'
+  ).join('');
+  return '<section class="page"><button type="button" class="back" id="close-sheet">← ' + esc(g.name) + ' · room ' + g.roomNumber + '</button>' +
+    '<div class="panel"><p class="kicker">New request</p><h1>Plan the experience</h1>' +
+    '<p class="sub">' + esc(g.guestId) + ' · ' + esc(g.occasion === 'None' ? 'No occasion noted' : g.occasion) + '</p>' +
+    '<div class="catgrid">' + tiles + '</div>' +
+    '<p class="opshead">Room & resort needs</p><div class="muted-row">' + ops + '</div>' +
+    '<h2>' + esc(cat.name) + '</h2><div class="picks">' + picks + '</div><p class="err" id="sheet-err"></p>' +
+    '<label class="f">Notes<textarea id="req-notes" placeholder="Optional detail"></textarea></label>' +
+    '<h2>How soon?</h2><div class="seg">' +
+    '<label><input type="radio" name="priority" value="P1"> P1</label>' +
+    '<label><input type="radio" name="priority" value="P2"> P2</label>' +
+    '<label><input type="radio" name="priority" value="P3" checked> P3</label></div>' +
+    '<label class="checkline"><input type="checkbox" id="sm-flag"' + (state.sheetLane === 'experience' ? ' checked' : '') + '> <span>Sales opportunity — include on Sales Opportunities.</span></label>' +
+    '<button class="primary" type="button" id="create-ticket">Save request</button></div></section>';
+}
+
+function renderRegister() {
+  if (state.successId && guestById(state.successId)) {
+    const g = guestById(state.successId);
+    return '<section class="page"><div class="panel success"><div><p class="kicker">Registered</p><h1>Guest ID created</h1>' +
+      '<p class="bignum" id="success-id">' + esc(g.guestId) + '</p><p>' + esc(g.name) + ' · room ' + g.roomNumber + '</p>' +
+      '<p>' + esc(g.occasion === 'None' ? 'No occasion' : g.occasion) + ' · ' + esc((g.interests || []).map(interestLabel).join(', ') || 'No interests') + '</p>' +
+      '<p class="meta">' + esc(contactLine(g)) + ' · best time ' + esc(g.bestTime) + '</p>' +
+      '<p class="sub">Optional QR so the guest can save the concierge contact. Placeholders until a real chat link is set.</p>' +
+      '<p class="meta">WhatsApp: ' + esc(HELP_DESK_WHATSAPP) + '<br>Email: ' + esc(HELP_DESK_EMAIL) + '</p>' +
+      '<div class="hrow"><button class="primary" type="button" id="open-new">Open this guest</button>' +
+      '<button class="ghost" type="button" id="reg-another">Register another</button></div></div>' +
+      '<div><div id="qr"></div><p class="meta">Not a live message. Logged on this iPad only.</p></div></div></section>';
+  }
+  const today = todayISO();
+  return '<section class="page"><div class="hero slim"><img src="../../dv-photos/exterior-2.jpg" alt="Divi Little Bay coastline">' +
+    '<div class="copy"><p class="kicker">Mobile Concierge Registration</p><h1>Plan their perfect stay</h1>' +
+    '<p>A guest service of Divi Little Bay Beach Resort. Start with the occasion and what they want to do.</p></div></div>' +
+    '<p class="err" id="form-error"></p><div class="formgrid"><div class="panel"><h2>The stay</h2>' +
+    '<label class="f">Guest name<input id="guest-name" placeholder="Sample Guest"></label>' +
+    '<div class="split"><label class="f">Room<input id="room" inputmode="numeric" placeholder="412"></label>' +
+    '<label class="f">Party<input id="party" type="number" min="1" value="2"></label></div>' +
+    '<div class="split"><label class="f">Arrival<input id="arrival" type="date" value="' + today + '"></label>' +
+    '<label class="f">Departure<input id="departure" type="date" value="' + addDays(today, 5) + '"></label></div>' +
+    '<p class="label">Occasion</p><div class="seg wrap">' +
+    OCCASIONS.map((o, i) => '<label><input type="radio" name="occasion" value="' + o + '"' + (i === 0 ? ' checked' : '') + '> ' + o + '</label>').join('') +
+    '</div><p class="label">Owner / member</p><div class="seg">' +
+    '<label><input type="radio" name="owner" value="Owner"> Owner</label>' +
+    '<label><input type="radio" name="owner" value="Non-owner" checked> Non-owner</label>' +
+    '<label><input type="radio" name="owner" value="Unknown"> Unknown</label></div>' +
+    '<p class="label">Interests</p><div class="tags" id="tags">' +
+    INTERESTS.map(([id, label]) => '<button type="button" class="tag" data-interest="' + id + '">' + label + '</button>').join('') +
+    '</div><label class="f">Notes for the next shift<textarea id="notes" placeholder="Anniversary dinner, boat day, anything to follow up"></textarea></label>' +
+    '<label class="f">Concierge initials<input id="staff" maxlength="4" placeholder="JM"></label></div>' +
+    '<div class="panel"><h2>How should we reach them?</h2>' +
+    '<p class="label">Best time</p><div class="seg wrap">' +
+    TIMES.map((t, i) => '<label><input type="radio" name="reach" value="' + t + '"' + (t === 'Evening' ? ' checked' : '') + '> ' + t + '</label>').join('') +
+    '</div><div class="seg col">' +
+    '<label><input type="checkbox" id="method-text"> Text / iMessage</label>' +
+    '<label><input type="checkbox" id="method-whatsapp"> WhatsApp</label>' +
+    '<label><input type="checkbox" id="method-email"> Email</label></div>' +
+    '<div id="phone-block" hidden><label class="f">Mobile<span class="split"><select id="mobile-cc"><option value="+1">+1</option><option value="+297">+297</option><option value="+599">+599</option><option value="+31">+31</option><option value="+44">+44</option></select>' +
+    '<input id="mobile-number" inputmode="tel" placeholder="721 555 0142"></span></label></div>' +
+    '<div id="wa-extra" hidden><label class="checkline"><input type="checkbox" id="wa-same" checked> <span>my WhatsApp is the same number</span></label>' +
+    '<div id="wa-num-block" hidden><label class="f">WhatsApp number<span class="split"><select id="wa-cc"><option value="+1">+1</option><option value="+31">+31</option></select><input id="wa-number" inputmode="tel"></span></label></div></div>' +
+    '<div id="email-block" hidden><label class="f">Email<input id="email" type="email" placeholder="guest@example.com"></label></div>' +
+    '<label class="checkline"><input type="checkbox" id="consent"> <span>OK for the Divi Little Bay guest help desk to contact me about my stay</span></label>' +
+    '<label class="checkline"><input type="checkbox" id="hot-lead"> <span>Hot lead — show on Sales Opportunities</span></label>' +
+    '<button class="primary" type="button" id="save-guest">Create Guest ID</button>' +
+    '<p class="meta">Nothing is texted. Room issues can be added later under Room & resort needs. SYNC_ENDPOINT is empty.</p></div></div></section>';
+}
+
+function allTickets() {
+  const rows = [];
+  db.guests.forEach(g => (g.tickets || []).forEach(t => rows.push({ g, t })));
+  return rows;
+}
+function renderDesk() {
+  const rows = allTickets();
+  function folderBtn(c, muted) {
+    const mine = rows.filter(r => r.t.category === c.code && r.t.status !== 'Resolved');
+    return '<button type="button" class="folder' + (state.folder === c.code ? ' on' : '') + (muted ? ' muted' : '') + '" data-folder="' + c.code + '"><span><b>' + esc(c.code) + '</b> ' + esc(c.name) + '</span><span class="n">' + mine.length + '</span></button>';
+  }
+  const list = rows.filter(r => r.t.category === state.folder).sort((a, b) => a.t.at < b.t.at ? 1 : -1);
+  const body = list.map(({ g, t }) =>
+    '<tr><td><strong>' + esc(t.priority) + '</strong>' + (t.smFlag ? ' <span class="pill pink">Sales</span>' : '') + '</td>' +
+    '<td>Room ' + g.roomNumber + '<div class="meta">' + esc(g.name) + '</div></td>' +
+    '<td class="subj">' + esc(t.subject) + '</td><td>' + esc(t.status) + '</td>' +
+    '<td><select data-status="' + esc(g.guestId) + '|' + esc(t.id) + '">' +
+    ['Open', 'In progress', 'Resolved'].map(s => '<option' + (t.status === s ? ' selected' : '') + '>' + s + '</option>').join('') +
+    '</select></td></tr>'
+  ).join('') || '<tr><td colspan="5" class="meta">Nothing in this folder.</td></tr>';
+  return '<section class="page"><h1>Concierge desk</h1><p class="sub">Experiences first. Resort ops stays underneath.</p><div class="desk"><div>' +
+    EXP.map(c => folderBtn(c, false)).join('') +
+    '<p class="opshead">Resort ops</p>' + OPS.map(c => folderBtn(c, true)).join('') +
+    '</div><div class="panel"><h2>' + esc(catBy(state.folder).name) + '</h2><table class="tickets"><thead><tr><th>Priority</th><th>Room</th><th>Subject</th><th>Status</th><th></th></tr></thead><tbody>' +
+    body + '</tbody></table></div></div></section>';
+}
+
+function renderSales() {
+  const today = todayISO();
+  const house = db.guests.filter(g => inHouse(g, today));
+  const hot = house.filter(g => g.hotLead);
+  const owners = house.filter(g => g.ownerStatus === 'Owner');
+  const upsells = [];
+  house.forEach(g => (g.experiences || []).forEach(e => { if (e.status === 'Suggested') upsells.push({ g, e }); }));
+  const rsvps = [];
+  house.forEach(g => (g.experiences || []).forEach(e => { if (/Soirée|RSVP|Invited/.test(e.title + e.status)) rsvps.push({ g, e }); }));
+  const celebrations = house.filter(celebrating);
+  const counts = [
+    [hot.length, 'Hot leads'],
+    [owners.length, 'Owner interest'],
+    [upsells.length, 'Upsells'],
+    [rsvps.length, 'Event RSVPs'],
+    [celebrations.length, 'Celebrations']
+  ];
+  const blocks = [
+    ['Hot leads', hot.map(g => cardLine(g, g.occasion + ' · ' + (g.interests || []).map(interestLabel).slice(0, 2).join(', ')))],
+    ['Event RSVPs · Owner Soirée', rsvps.map(({ g, e }) => cardLine(g, e.status + ' · ' + e.detail))],
+    ['Upsells still open', upsells.map(({ g, e }) => cardLine(g, e.title + ' · ' + e.detail))],
+    ['Celebrations', celebrations.map(g => cardLine(g, g.occasion + ' · departs ' + prettyDate(g.departure)))]
+  ];
+  return '<section class="page"><div class="hero slim"><img src="../../dv-photos/pools-1.jpg" alt=""><div class="copy"><p class="kicker">Sales Opportunities</p><h1>Who to follow up today</h1>' +
+    '<p>Hot leads, owner interest, excursion upsells, Owner Soirée RSVPs, and celebrations. Local to this iPad until a digest is emailed.</p></div></div>' +
+    '<div class="stats">' + counts.map(([n, label]) => '<div class="stat"><b>' + n + '</b>' + esc(label) + '</div>').join('') + '</div>' +
+    blocks.map(([title, html]) => '<h2>' + esc(title) + '</h2>' + (html.join('') || '<p class="empty">None.</p>')).join('') +
+    '</section>';
+}
+function cardLine(g, detail) {
+  return '<article class="digest"><div class="grow"><strong>' + esc(g.name) + '</strong><span>Room ' + g.roomNumber + '</span></div>' +
+    '<p class="subj">' + esc(detail) + '</p><p class="meta">' + esc(g.guestId) + ' · ' + esc(contactLine(g)) + '</p></article>';
+}
+
+function render() {
+  document.getElementById('nav').innerHTML = navHTML();
+  const root = document.getElementById('app');
+  root.innerHTML = state.view === 'board' ? renderBoard()
+    : state.view === 'profile' ? renderProfile()
+    : state.view === 'register' ? renderRegister()
+    : state.view === 'desk' ? renderDesk()
+    : renderSales();
+  bind();
+  if (state.view === 'register' && state.successId) {
+    const g = guestById(state.successId);
+    if (g) drawQR(g);
+  }
+}
+
+function digits(v) { return String(v || '').replace(/\D/g, ''); }
+function phoneOK(n) { return n.length >= 7 && n.length <= 15; }
+function syncContactFields() {
+  const text = document.getElementById('method-text');
+  if (!text) return;
+  const wa = document.getElementById('method-whatsapp').checked;
+  const em = document.getElementById('method-email').checked;
+  document.getElementById('phone-block').hidden = !(text.checked || wa);
+  document.getElementById('wa-extra').hidden = !wa;
+  document.getElementById('wa-num-block').hidden = !wa || document.getElementById('wa-same').checked;
+  document.getElementById('email-block').hidden = !em;
+}
+function nextGuestId(arrival, roomNumber) {
+  const [y, m, d] = arrival.split('-');
+  const rrrr = String(roomNumber).padStart(4, '0');
+  const prefix = 'DLB-' + y.slice(2) + m + d + '-' + rrrr + '-';
+  let n = 0;
+  db.guests.forEach(g => { if (g.guestId.startsWith(prefix)) n += 1; });
+  return { guestId: prefix + String(n + 1).padStart(2, '0'), room: rrrr };
+}
+function saveGuest() {
+  const err = document.getElementById('form-error');
+  const name = document.getElementById('guest-name').value.trim();
+  const roomNumber = Number(digits(document.getElementById('room').value));
+  const arrival = document.getElementById('arrival').value;
+  const departure = document.getElementById('departure').value;
+  const partySize = Number(document.getElementById('party').value || '1');
+  const ownerStatus = (document.querySelector('input[name="owner"]:checked') || {}).value || 'Unknown';
+  const occasion = (document.querySelector('input[name="occasion"]:checked') || {}).value || 'None';
+  const bestTime = (document.querySelector('input[name="reach"]:checked') || {}).value || 'Anytime';
+  const staff = document.getElementById('staff').value.trim().toUpperCase();
+  const notes = document.getElementById('notes').value.trim();
+  const interests = [...document.querySelectorAll('.tag.on')].map(b => b.dataset.interest);
+  const methods = [];
+  if (document.getElementById('method-text').checked) methods.push('text');
+  if (document.getElementById('method-whatsapp').checked) methods.push('whatsapp');
+  if (document.getElementById('method-email').checked) methods.push('email');
+  const email = document.getElementById('email').value.trim();
+  const problems = [];
+  if (!name) problems.push('Enter the guest name.');
+  if (!roomNumber || roomNumber > 9999) problems.push('Enter a room number.');
+  if (!arrival || !departure || departure < arrival) problems.push('Check the dates.');
+  if (!staff) problems.push('Enter your initials.');
+  if (!interests.length && occasion === 'None') problems.push('Add an interest or an occasion.');
+  if (!methods.length) problems.push('Choose how to reach them.');
+  const national = digits(document.getElementById('mobile-number').value);
+  const wantPhone = methods.includes('text') || methods.includes('whatsapp');
+  if (wantPhone && !phoneOK(national)) problems.push('Enter a mobile number.');
+  const waSame = document.getElementById('wa-same').checked;
+  const waNational = digits(document.getElementById('wa-number').value);
+  if (methods.includes('whatsapp') && !waSame && !phoneOK(waNational)) problems.push('Enter the WhatsApp number or tick same number.');
+  if (methods.includes('email') && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) problems.push('Enter an email.');
+  if (!document.getElementById('consent').checked) problems.push('Confirm we may contact them about the stay.');
+  if (problems.length) { err.textContent = problems.join(' '); return; }
+  const id = nextGuestId(arrival, roomNumber);
+  const mobile = wantPhone ? { cc: document.getElementById('mobile-cc').value, national, display: document.getElementById('mobile-cc').value + ' ' + document.getElementById('mobile-number').value.trim() } : null;
+  const whatsapp = methods.includes('whatsapp') && !waSame ? { cc: document.getElementById('wa-cc').value, national: waNational, display: document.getElementById('wa-cc').value + ' ' + document.getElementById('wa-number').value.trim() } : null;
+  const now = new Date().toISOString();
+  const hotLead = document.getElementById('hot-lead').checked || ownerStatus === 'Owner' || occasion !== 'None';
+  const guest = {
+    guestId: id.guestId, name, room: id.room, roomNumber, arrival, departure, partySize, ownerStatus,
+    occasion, interests, bestTime, hotLead, methods, mobile, whatsappSame: waSame, whatsapp,
+    email: methods.includes('email') ? email : '', consent: true, staff, notes, createdAt: now,
+    messages: [{ channel: 'in_person', staff, body: 'Registered for Mobile Concierge. Occasion: ' + occasion + '. Interests saved.', at: now }],
+    experiences: interests.slice(0, 2).map(i => ({ title: interestLabel(i), detail: 'Suggested from registration', status: 'Suggested' })),
+    tickets: []
+  };
+  if (ownerStatus === 'Owner') {
+    guest.experiences.unshift({ title: 'Owner Soirée', detail: SOIREE, status: 'Invited' });
+  }
+  db.guests.unshift(guest);
+  persist();
+  maybeSync({ type: 'registration', service: 'Mobile Concierge Registration', guest });
+  state.successId = guest.guestId;
+  render();
+}
+function createTicket() {
+  const g = guestById(state.guestId);
+  const picked = document.querySelector('input[name="pick"]:checked');
+  const notes = document.getElementById('req-notes').value.trim();
+  const err = document.getElementById('sheet-err');
+  if (!picked && !notes) { err.textContent = 'Choose a quick option or add a note.'; return; }
+  const summary = picked ? picked.value : notes.split('\n')[0].slice(0, 80);
+  const priority = (document.querySelector('input[name="priority"]:checked') || {}).value || 'P3';
+  const n = (g.tickets || []).length + 1;
+  const ticket = {
+    id: 'T' + String(n).padStart(2, '0'),
+    lane: state.sheetLane,
+    category: state.sheetCat,
+    priority, summary, notes,
+    status: 'Open',
+    smFlag: document.getElementById('sm-flag').checked,
+    at: new Date().toISOString()
+  };
+  ticket.subject = subjectOf(g, ticket);
+  g.tickets.push(ticket);
+  if (state.sheetLane === 'experience' && !g.experiences.some(e => e.title === summary)) {
+    g.experiences.push({ title: summary, detail: notes || 'Added from concierge', status: 'Suggested' });
+  }
+  g.messages.push({ channel: 'in_person', staff: g.staff, body: 'Request logged: ' + ticket.subject, at: ticket.at });
+  persist();
+  maybeSync({ type: 'ticket', service: 'Mobile Concierge Registration', guestId: g.guestId, ticket });
+  state.sheet = false;
+  render();
+}
+function logMessage(event) {
+  event.preventDefault();
+  const g = guestById(state.guestId);
+  const body = document.getElementById('log-body').value.trim();
+  if (!body) return;
+  const staff = document.getElementById('log-staff').value.trim().toUpperCase() || g.staff;
+  const channel = (document.querySelector('input[name="channel"]:checked') || {}).value || 'in_person';
+  g.messages.push({ channel, staff, body, at: new Date().toISOString() });
+  persist();
+  render();
+}
+function bind() {
+  document.getElementById('nav').querySelectorAll('[data-nav]').forEach(btn => btn.addEventListener('click', () => setView(btn.dataset.nav)));
+  document.querySelectorAll('[data-open]').forEach(btn => btn.addEventListener('click', () => openGuest(btn.dataset.open)));
+  document.querySelectorAll('[data-filter]').forEach(btn => btn.addEventListener('click', () => {
+    const key = btn.dataset.filter;
+    if (key === 'all') state.filters = { celebrating: false, owners: false, excursions: false, hot: false, departing: false };
+    else state.filters[key] = !state.filters[key];
+    render();
+  }));
+  const q = document.getElementById('q');
+  if (q) q.addEventListener('input', () => { state.query = q.value; const pos = q.selectionStart; render(); const again = document.getElementById('q'); if (again) { again.focus(); again.setSelectionRange(pos, pos); } });
+  const back = document.getElementById('back-board');
+  if (back) back.addEventListener('click', () => setView('board'));
+  const nr = document.getElementById('new-request');
+  if (nr) nr.addEventListener('click', () => { state.sheet = true; state.sheetCat = 'ACT'; state.sheetLane = 'experience'; render(); });
+  const close = document.getElementById('close-sheet');
+  if (close) close.addEventListener('click', () => { state.sheet = false; render(); });
+  document.querySelectorAll('[data-cat]').forEach(btn => btn.addEventListener('click', () => {
+    state.sheetCat = btn.dataset.cat;
+    state.sheetLane = btn.dataset.lane;
+    render();
+  }));
+  const create = document.getElementById('create-ticket');
+  if (create) create.addEventListener('click', createTicket);
+  const composer = document.getElementById('composer');
+  if (composer) composer.addEventListener('submit', logMessage);
+  document.querySelectorAll('[data-folder]').forEach(btn => btn.addEventListener('click', () => { state.folder = btn.dataset.folder; render(); }));
+  document.querySelectorAll('[data-status]').forEach(sel => sel.addEventListener('change', () => {
+    const [gid, tid] = sel.dataset.status.split('|');
+    const g = guestById(gid);
+    const t = g && g.tickets.find(x => x.id === tid);
+    if (!t) return;
+    t.status = sel.value;
+    persist();
+    render();
+  }));
+  ['method-text', 'method-whatsapp', 'method-email', 'wa-same'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('change', syncContactFields);
+  });
+  document.querySelectorAll('.tag').forEach(btn => btn.addEventListener('click', () => btn.classList.toggle('on')));
+  const save = document.getElementById('save-guest');
+  if (save) save.addEventListener('click', saveGuest);
+  const openNew = document.getElementById('open-new');
+  if (openNew) openNew.addEventListener('click', () => openGuest(state.successId));
+  const another = document.getElementById('reg-another');
+  if (another) another.addEventListener('click', () => { state.successId = null; render(); });
+}
+render();
+
+</script>
+</body>
+</html>

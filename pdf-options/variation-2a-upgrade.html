@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Variation 2a Upgrade</title><style>
+  @page{size:letter;margin:0}
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{width:8.5in;height:11in;overflow:hidden;display:flex;flex-direction:column;font-family:Inter,"Segoe UI",Helvetica,Arial,sans-serif;color:#1E1E1E;background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+
+  .badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;vertical-align:middle;margin-left:6px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .badge.gold{background:linear-gradient(180deg,#ffe9a3 0%,#e0b33a 55%,#c49216 100%);color:#2a2108}
+  .badge.silver{background:linear-gradient(180deg,#fbfcfd 0%,#d7dee6 46%,#9aa3b2 100%);color:#1a1f27}
+  .badge.platinum{background:linear-gradient(135deg,#fff 0%,#eef3f8 36%,#d5dee8 50%,#f9fbfd 64%,#e4ebf2 100%);color:#0F325A;border:1px solid #d5dee8}
+  .elig{font-size:10px;font-weight:700;color:#fff;background:#006E82;border-radius:10px;padding:1px 6px;margin-left:4px}
+
+  .offer{flex:1;display:flex;flex-direction:column;min-height:0}
+  .head{background:#0F325A;color:#fff;padding:0.28in 0.42in 0.24in;position:relative}
+  .brand{letter-spacing:.22em;font-size:11px;font-weight:650;opacity:.8}
+  .head h1{margin:4px 0 0;font-size:32px;font-weight:700;letter-spacing:-.03em;line-height:1}
+  .sub{margin-top:6px;font-size:13px;opacity:.88}
+  .date{position:absolute;right:0.42in;bottom:0.22in;text-align:right;font-size:11px;line-height:1.3}
+  .date b{display:block;font-size:14px;font-weight:700}
+  .offer-body{flex:1;display:flex;flex-direction:column;justify-content:flex-start;padding:0.22in 0.42in 0.16in}.offer-body{justify-content:flex-start}.hero-total{margin-top:auto;padding-top:.08in}.hero-total .lbl{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#006E82;font-weight:700}.hero-total .num{font-size:54px;font-weight:700;color:#0F325A;letter-spacing:-.04em;line-height:.95;margin:4px 0 8px}.hero-total .meta{font-size:14px}
+  .pkg h2{margin:0;font-size:34px;font-weight:700;color:#0F325A;letter-spacing:-.03em}
+  .rate{margin-top:4px;font-size:15px;color:#3d4a5c}
+  table{width:100%;border-collapse:collapse}
+  td{padding:7px 0;font-size:14px;border-bottom:1px solid #e6ebf1;vertical-align:baseline}
+  td:last-child{text-align:right;font-weight:650;white-space:nowrap;padding-left:12px}
+  tr.freeze td{background:#fff8e4;font-weight:650}
+  tr.total td{border-bottom:none;padding-top:10px;font-size:26px;font-weight:700;color:#0F325A}
+  .meta{display:flex;justify-content:space-between;font-size:13px;color:#3d4a5c}
+  .meta b{color:#006E82}
+  .lower{display:flex;flex-direction:column}
+  .loan{padding:0.12in 0.42in 0.06in}
+  .loan h3{margin:0 0 2px;font-size:16px;font-weight:700;color:#0F325A}
+  .loan td{font-size:13px;padding:3px 0}
+  .tiern{color:#006E82;font-weight:650;font-size:12px}
+  .promo{background:#0F325A;color:#fff;padding:0.16in 0.42in;display:flex;align-items:center;justify-content:space-between;gap:18px}
+  .promo .k{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#f3d48a;font-weight:700;margin:0 0 3px}
+  .promo h3{margin:0;font-size:18px;font-weight:700;letter-spacing:-.02em}
+  .promo p{margin:3px 0 0;font-size:12px;line-height:1.35;color:#e7eef6}
+  .promo .amt{font-size:28px;font-weight:700;color:#f3d48a;letter-spacing:-.03em;text-align:right;white-space:nowrap}
+  .promo .amt span{display:block;font-size:12px;font-weight:650;color:#fff;letter-spacing:0}
+  .maint{font-size:8px;line-height:1.35;color:#b0b6be;margin:0;padding:0.08in 0.42in 0}
+  .foot{padding:0.06in 0.42in 0.16in;display:flex;gap:22px}
+  .sig{flex:1;border-top:1px solid #c5ced8;padding-top:3px;font-size:10px;color:#8b949e}
+  .disc{font-size:8px;color:#b0b6be;margin:5px 0.42in 0;line-height:1.3}
+  .tag{text-align:center;color:#0F325A;font-weight:700;font-size:11px;margin:5px 0 0.12in}
+
+  .head{padding-right:2.35in}
+  .date{position:static;right:auto;bottom:auto;text-align:left;margin-top:10px}.date b{display:inline;margin-left:8px;font-size:14px}
+  .tab{position:absolute;top:0.2in;right:0;width:2.05in;background:#f3d48a;color:#1a1408;padding:10px 14px 12px 14px;border-radius:10px 0 0 10px}
+  .tab .k{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#8a6412}
+  .tab strong{display:block;margin-top:2px;font-size:15px;line-height:1.15;color:#0F325A}
+  .tab span{display:block;margin-top:3px;font-size:11px;line-height:1.3}
+  .pay{display:flex;border-top:1px solid #d5dee8;border-bottom:1px solid #d5dee8;background:#f4f7fa}
+  .pay .cell{flex:1;padding:9px 10px 10px;border-right:1px solid #e1e9f1;min-width:0}
+  .pay .cell:last-child{border-right:0}
+  .pay em{display:block;font-style:normal;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#5c6b7c;font-weight:700}
+  .pay b{display:block;margin-top:2px;font-size:15px;color:#0F325A;font-weight:700;letter-spacing:-.02em;line-height:1.1}
+  .pay .cell.hero b{font-size:20px}
+  .pay small{display:block;margin-top:2px;font-size:9px;color:#5c6b7c;line-height:1.25;font-weight:500}
+</style></head>
+<body>
+  <section class="offer">
+    <header class="head">
+      <div class="brand">DIVI VACATION CLUB</div>
+      <h1>Ownership Offer</h1>
+      <div class="sub">Divi Little Bay Beach Resort · Sint Maarten</div>
+      <div class="date">Date<b>October 15, 2026</b></div>
+      <aside class="tab"><div class="k">Bonus week</div><strong>7 nights, free</strong><span>Any Divi location · Studio<br>Aruba · Barbados · Bonaire · St. Maarten</span></aside>
+    </header>
+    <div class="offer-body">
+      <div class="pkg"><h2>65,000 points <span class="badge gold">Gold level</span></h2><div class="rate">$0.47 per point · Upgrade — wrap current loan</div></div>
+      <div>
+        
+      <table>
+        <tr><td>65,000 points @ $0.47/pt <span class="badge gold">Gold level</span></td><td>$30,550.00</td></tr>
+        <tr class="freeze"><td>Special price freeze offer (65,000 points @ $0.47/pt) — expires February 15, 2027 <span class="elig">Eligible</span></td><td>−$2,000.00</td></tr>
+        </table>
+      <div class="hero-total"><div class="lbl">Total investment</div><div class="num">$28,550.00</div>
+      <div class="meta"><span>Effective price per point <b>$0.439</b></span><span>Total savings vs. base rate <b>$9,150.00</b></span></div></div>
+    
+      </div>
+    </div>
+    
+  </section>
+  <section class="pay"><div class="cell hero"><em>Monthly</em><b>$596.66</b><small>per month</small></div><div class="cell "><em>Due today</em><b>$3,155.00</b><small>Deposit (10%) $2,855.00 + closing cost $300.00</small></div><div class="cell "><em>Financed</em><b>$37,695.00</b><small>Amount financed</small></div><div class="cell "><em>APR / term</em><b>14.5%</b><small>120 months</small></div><div class="cell "><em>Current</em><b>$250.00</b><small>Current payment</small></div><div class="cell "><em>Change</em><b>+$346.66</b><small>vs current payment</small></div></section>
+  <div class="lower">
+    
+    <section class="loan">
+      <h3>Upgrade to Platinum!</h3>
+      <table>
+        <tr><td>Current points</td><td>40,000 <span class="badge silver">Silver level</span></td></tr>
+        <tr><td>New total points</td><td>105,000 <span class="badge platinum">Platinum level</span> <span class="tiern">13-month booking window</span></td></tr>
+        <tr><td>Current loan payoff</td><td>$12,000.00</td></tr>
+      </table>
+    </section>
+    
+    
+    <section class="promo">
+      <div>
+        <p class="k">Special Fall Promotion</p>
+        <h3>First year's maintenance fees free</h3>
+        <p>$1,629.50 credited to your first use year's maintenance bill. <b>Not deducted from the purchase price.</b></p>
+      </div>
+      <div class="amt">$1,629.50<span>Year 1 after credit: $0.00</span></div>
+    </section>
+    
+    
+    <p class="maint">Annual maintenance fees $1,629.50/yr · $830.00 base + $799.50 (65,000 × $0.0123). Not affected by promo credits or discounts. Financing example for illustration; subject to credit approval and actual loan terms. Studio unit; 1 bedroom requires special approval.</p>
+    <div class="foot"><div class="sig">Guest name</div><div class="sig">Rep name</div></div>
+    <p class="disc">Pricing for illustration. Final terms per purchase agreement.</p>
+    <div class="tag">Pure fun. Pure value. Pure flexibility.</div>
+    
+  </div>
+</body></html>

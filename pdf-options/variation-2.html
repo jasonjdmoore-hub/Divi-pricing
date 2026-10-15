@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ownership Offer — Variation 2</title>
+<style>
+  @page { size: letter; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    width: 8.5in;
+    height: 11in;
+    overflow: hidden;
+    display: flex;
+    font-family: Inter, "Segoe UI", Helvetica, Arial, sans-serif;
+    color: #1E1E1E;
+    background: #fff;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .main {
+    flex: 1;
+    min-width: 0;
+    padding: 0.28in 0.32in 0.22in 0.36in;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .brand { letter-spacing: 0.2em; font-size: 10px; font-weight: 650; color: #006E82; }
+  h1 { margin: 2px 0 0; font-size: 24px; font-weight: 700; color: #0F325A; letter-spacing: -0.03em; }
+  .sub { font-size: 11px; color: #5c6b7c; margin-top: 2px; }
+  .date { float: right; text-align: right; font-size: 11px; color: #5c6b7c; line-height: 1.3; }
+  .date b { display: block; color: #0F325A; font-size: 13px; }
+  .pkg { margin-top: 0.08in; }
+  .pkg h2 { margin: 0; font-size: 28px; font-weight: 700; color: #0F325A; letter-spacing: -0.03em; }
+  .rate { font-size: 13px; color: #3d4a5c; margin-top: 2px; }
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+    vertical-align: middle;
+    margin-left: 6px;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .badge.gold { background: linear-gradient(180deg,#ffe9a3 0%,#e0b33a 55%,#c49216 100%); color: #2a2108; }
+  .badge.silver { background: linear-gradient(180deg,#fbfcfd 0%,#d7dee6 46%,#9aa3b2 100%); color: #1a1f27; }
+  .badge.platinum { background: linear-gradient(135deg,#ffffff 0%,#eef3f8 36%,#d5dee8 50%,#f9fbfd 64%,#e4ebf2 100%); color: #0F325A; border: 1px solid #d5dee8; }
+  .tiern { font-size: 11px; color: #006E82; font-weight: 650; }
+  table { width: 100%; border-collapse: collapse; }
+  td { padding: 5px 0; font-size: 12.5px; border-bottom: 1px solid #e6ebf1; vertical-align: baseline; }
+  td:last-child { text-align: right; font-weight: 650; white-space: nowrap; padding-left: 10px; }
+  tr.freeze td { background: #fff8e4; font-weight: 650; }
+  tr.total td { border-bottom: none; padding-top: 8px; font-size: 18px; font-weight: 700; color: #0F325A; }
+  .meta { font-size: 12px; color: #3d4a5c; display: flex; justify-content: space-between; }
+  .meta b { color: #006E82; }
+  .fig { font-size: 32px; font-weight: 650; color: #0F325A; letter-spacing: -0.03em; line-height: 1; }
+  .fig span { font-size: 14px; font-weight: 600; }
+  .paycap { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #006E82; font-weight: 700; margin-bottom: 3px; }
+  .rows td { font-size: 12px; padding: 3.5px 0; }
+  .up { margin: 0 0 2px; font-size: 15px; font-weight: 700; color: #0F325A; }
+  .maint { font-size: 8px; line-height: 1.35; color: #b0b6be; margin: 0; }
+  .sigrow { display: flex; gap: 18px; }
+  .sig { flex: 1; border-top: 1px solid #c5ced8; padding-top: 3px; font-size: 10px; color: #8b949e; }
+  .disc { font-size: 8px; color: #b0b6be; margin: 6px 0 0; line-height: 1.3; }
+  .tag { margin-top: 6px; font-size: 11px; font-weight: 700; color: #0F325A; }
+  .elig { font-size: 10px; font-weight: 700; color: #fff; background: #006E82; border-radius: 10px; padding: 1px 6px; }
+  .side {
+    width: 2.95in;
+    background: #0F325A;
+    color: #fff;
+    padding: 0.32in 0.26in 0.26in;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .side .kicker { margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #f3d48a; }
+  .side h2 { margin: 10px 0 6px; font-size: 26px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; }
+  .side p { margin: 0; font-size: 13px; line-height: 1.4; color: #e7eef6; }
+  .rule { height: 1px; background: rgba(255,255,255,0.22); margin: 0.22in 0; }
+  .side .amt { font-size: 34px; font-weight: 700; letter-spacing: -0.03em; color: #f3d48a; margin: 6px 0 6px; line-height: 1; }
+  .side .strong { font-weight: 700; color: #fff; }
+  .year { margin-top: 12px; font-size: 15px; font-weight: 700; color: #f3d48a; }
+</style>
+</head>
+<body>
+  <div class="main">
+    <div>
+      <div class="date">Date<b>October 15, 2026</b></div>
+      <div class="brand">DIVI VACATION CLUB</div>
+      <h1>Ownership Offer</h1>
+      <div class="sub">Divi Little Bay Beach Resort · Sint Maarten</div>
+      <div class="pkg">
+        <h2>65,000 points <span class="badge gold">Gold level</span></h2>
+        <div class="rate">$0.47 per point</div>
+      </div>
+      <table>
+        <tr><td>65,000 points @ $0.47/pt <span class="badge gold">Gold level</span></td><td>$30,550.00</td></tr>
+        <tr class="freeze"><td>Special price freeze offer (65,000 points @ $0.47/pt) — expires February 15, 2027 <span class="elig">Eligible</span></td><td>−$2,000.00</td></tr>
+        <tr class="total"><td>Total investment</td><td>$28,550.00</td></tr>
+      </table>
+      <div class="meta"><span>Effective <b>$0.439</b>/pt</span><span>Savings vs. base <b>$9,150.00</b></span></div>
+    </div>
+
+    <div>
+      <div class="paycap">New monthly payment</div>
+      <div class="fig">$596.66<span>/mo</span></div>
+      <table class="rows">
+        <tr><td>Due today (10% deposit + $300 closing)</td><td>Deposit (10%) $2,855.00 + closing cost $300.00 = $3,155.00 due today</td></tr>
+        <tr><td>Amount financed</td><td>$37,695.00</td></tr>
+        <tr><td>APR / term</td><td>14.5% / 120 months</td></tr>
+        <tr><td>Current payment</td><td>$250.00</td></tr>
+        <tr><td>Change</td><td>+$346.66</td></tr>
+      </table>
+    </div>
+
+    <div>
+      <p class="up">Upgrade to Platinum!</p>
+      <table class="rows">
+        <tr><td>Current points</td><td>40,000 <span class="badge silver">Silver level</span></td></tr>
+        <tr><td>New total points</td><td>105,000 <span class="badge platinum">Platinum level</span></td></tr>
+        <tr><td>Booking window</td><td class="tiern">13-month booking window</td></tr>
+        <tr><td>Current loan payoff</td><td>$12,000.00</td></tr>
+      </table>
+    </div>
+
+    <div>
+      <p class="maint">Annual maintenance fees $1,629.50/yr · $830.00 base + $799.50 (65,000 × $0.0123). Not affected by promo credits or discounts. Financing example for illustration; subject to credit approval and actual loan terms.</p>
+      <div class="sigrow" style="margin-top:10px">
+        <div class="sig">Guest name</div>
+        <div class="sig">Rep name</div>
+      </div>
+      <p class="disc">Pricing for illustration. Final terms per purchase agreement.</p>
+      <div class="tag">Pure fun. Pure value. Pure flexibility.</div>
+    </div>
+  </div>
+
+  <aside class="side">
+    <div>
+      <p class="kicker">Your bonuses</p>
+      <h2>7-night vacation week, free</h2>
+      <p>Any Divi location. Studio unit.<br>Aruba · Barbados · Bonaire · St. Maarten.<br>1 bedroom requires special approval.</p>
+    </div>
+    <div class="rule"></div>
+    <div>
+      <p class="kicker">Special Fall Promotion</p>
+      <h2>First year's maintenance fees free</h2>
+      <div class="amt">$1,629.50</div>
+      <p>Credited to your first use year's maintenance bill. <span class="strong">Not deducted from the purchase price.</span></p>
+      <div class="year">Year 1 after credit: $0.00</div>
+    </div>
+    <p style="font-size:11px;color:#c5d4e4;margin:0">Future billed expense. The credit applies to the maintenance bill, not the purchase price.</p>
+  </aside>
+</body>
+</html>

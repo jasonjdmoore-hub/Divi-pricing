@@ -1,0 +1,16 @@
+Resort photos on the planner, taken from each property's official website.
+
+divi-phoenix.jpg
+  Divi Phoenix Beach Resort, Palm Beach, Aruba. Beach exterior of the resort.
+  Page: https://www.diviresorts.com/divi-aruba-phoenix-beach-resort-aruba.htm
+  Image: https://www.diviresorts.com/files/5949/PHX_Signature_Fully_Edited.jpg
+
+westin-kaanapali-villas.jpg
+  The Westin Ka'anapali Ocean Resort Villas (Marriott Vacation Club), beach and villa exterior.
+  Page: https://www.marriott.com/en-us/hotels/oggws-the-westin-kaanapali-ocean-resort-villas/photos/
+  Image: https://cache.marriott.com/is/image/marriotts7prod/wv-oggws-exterior-34190:Wide-Hor?wid=1600&fit=constrain
+
+harborside-atlantis.jpg
+  Harborside Resort at Atlantis, marina view looking across to the Atlantis Royal Towers. Not an aquarium.
+  Page: https://www.atlantisbahamas.com/rooms/harborsideresort/accommodations
+  Image: https://assets.atlantisbahamas.com/media/legacy/atlantis/PhotoGallery/Resort/HarborsideResort.jpg
